@@ -341,7 +341,7 @@
 					<div class="row justify-content-start align-items-center">
 						<div class="col-lg-6 video-right justify-content-center align-items-center d-flex">
 							<div class="overlay overlay-bg">
-							<a class="play-btn" href="https://www.youtube-nocookie.com/embed/JPqr5MqKcG0">
+							<a class="play-btn" href="https://youtu.be/RQ3DQBfm8ns?si=qrDqM7KCEZRLT6wr">
 							    <center><img class="img-fluid" src="img/play-icon.png" alt=""></a></center>
 							</div>
 						</div>
