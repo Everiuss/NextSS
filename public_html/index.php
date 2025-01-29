@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 	<html lang="es" class="no-js">
 	<head>
-		<!-- Mobile Specific Meta -->
+		<!-- Mobile Specific Meta 2-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
 		<link rel="shortcut icon" href="img/icono.png">
