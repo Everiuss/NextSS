@@ -71,13 +71,13 @@
 						</div>
 					</div>
 					
-					<div class="flex-sb-m w-full p-b-30">
+					<!--<div class="flex-sb-m w-full p-b-30">
 						<label class="label">
 					    <a href="user_register.php" style="text-decoration: none;">
 							¿No tienes una cuenta? <b>Crea una aquí.</b>
 						</a>
 						</label>
-					</div>
+					</div>-->
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit" name="ingresar" value="Iniciar Sesion" align="center" style="padding: 0 125px;">

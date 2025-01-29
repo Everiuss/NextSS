@@ -347,17 +347,17 @@
 					<div class="row justify-content-start align-items-center">
 						<div class="col-lg-6 video-right justify-content-center align-items-center d-flex">
 							<div class="overlay overlay-bg">
-							<a class="play-btn" href="https://youtu.be/RQ3DQBfm8ns?si=qrDqM7KCEZRLT6wr">
+							<a class="play-btn" href="https://www.youtube.com/watch?v=YJmGusVyDLs">
 							    <center><img class="img-fluid" src="img/play-icon.png" alt=""></a></center>
 							</div>
 						</div>
 						<div class="col-lg-6 video-left">
-							<h6>Palabras de Claty House</h6>
-							<h1>¿Qué somos?</h1>
-							<p><span>Somos una tienda de postres</span></p>
+							<h6>UDG Virtual</h6>
+							<h1>Tutorial Servicio Social</h1>
+							<p><span></span></p>
 							<p>
-                                Pasteles personalizados, caseros con diseños minimalistas.
-                                <b>Somos Claty House.</b>
+                                
+                                <b></b>
 							</p>
 							<img class="img-fluid" src="img/logoF.png" alt="">
 						</div>
