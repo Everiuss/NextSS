@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 	<html lang="es" class="no-js">
 	<head>
-		<!-- Mobile Specific Meta 2-->
+		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
 		<link rel="shortcut icon" href="img/icono.png">
@@ -17,7 +17,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Claty House</title>
+		<title>Servicio Social</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 			<!--
@@ -216,7 +216,7 @@
 			</section>
 			<!-- End menu Area -->
 
-			<!-- Start Galería Area -->
+			<!-- Start Galería Area 
 			<section class="gallery-area section-gap" id="Galeria">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
@@ -263,7 +263,7 @@
 					</div>
 				</div>
 			</section>
-			<!-- End gallery Area -->
+			End gallery Area -->
 			
 			<!-- Start review Area -->
 			<section class="review-area section-gap" id="Nosotros">

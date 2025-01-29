@@ -2364,6 +2364,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 @media (max-width: 768px) {
   .video-sec-area {
+    background-color: #19328a;
     padding-top: 0px;
   }
 }
@@ -2375,7 +2376,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .video-left h6 {
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #b68834;
+  color: #4334b6;
   font-size: 12px;
   font-weight: 300;
 }
@@ -2418,7 +2419,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .menu-area {
-  background: url(../img/menu-bg.jpg) center;
+  background: url(../img/menu-bgb.jpg) center;
   background-size: cover;
 }
 
@@ -2450,7 +2451,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .review-area {
-  background-color: #FEAEC0;
+  background-color: #19328a;
   color: #fff;
 }
 
