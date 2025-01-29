@@ -50,7 +50,7 @@
                            
 						<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fecha y Hora Actual</title>
+    <title>Sistema de Administración de Servicio Social</title>
 </head>
 <body>
     <h1>Fecha y Hora Actual</h1>
