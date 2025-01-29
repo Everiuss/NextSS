@@ -47,17 +47,23 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
-                            <ul>
-                                <li>
-                                    <i> Lunes &nbsp; & &nbsp; Viernes: 9am a 9pm &nbsp;</i>
-                                </li>
-                                <li>
-                                        <i> Martes &nbsp; - &nbsp; Jueves &nbsp; & &nbsp; Sábado: 9am a 6pm </i>
-                                </li>
-                                <li>
-                                        <i> <a href="https://api.whatsapp.com/send?phone=3322695236" target="_blank"> &nbsp; +52 33 22695236 </a> </i>
-                                </li>
-                            </ul>
+                           
+						<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fecha y Hora Actual</title>
+</head>
+<body>
+    <h1>Fecha y Hora Actual</h1>
+    <p>
+        <?php
+        // Establecer la zona horaria
+        date_default_timezone_set('America/Mexico_City');
+        
+        // Obtener la fecha y hora actual
+        echo "Fecha y Hora: " . date('d-m-Y H:i:s');
+        ?>
+    </p>
+
                         </div>
                     </div>
                 </div>
