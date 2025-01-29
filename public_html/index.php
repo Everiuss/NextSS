@@ -17,7 +17,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Claty House</title>
+		<title>Servicio Social</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 			<!--
@@ -47,8 +47,6 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
-
-
                             <ul>
                                 <li>
                                     <i> Lunes &nbsp; & &nbsp; Viernes: 9am a 9pm &nbsp;</i>
@@ -60,8 +58,6 @@
                                         <i> <a href="https://api.whatsapp.com/send?phone=3322695236" target="_blank"> &nbsp; +52 33 22695236 </a> </i>
                                 </li>
                             </ul>
-
-							
                         </div>
                     </div>
                 </div>
@@ -220,7 +216,7 @@
 			</section>
 			<!-- End menu Area -->
 
-			<!-- Start Galería Area -->
+			<!-- Start Galería Area 
 			<section class="gallery-area section-gap" id="Galeria">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
@@ -267,7 +263,7 @@
 					</div>
 				</div>
 			</section>
-			<!-- End gallery Area -->
+			End gallery Area -->
 			
 			<!-- Start review Area -->
 			<section class="review-area section-gap" id="Nosotros">
