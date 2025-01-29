@@ -63,9 +63,9 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row align-items-center justify-content-between d-flex">
+                <div class="row align-items-center justify-content-between ">
                     <div id="logo">
-                        <a href="index.php"><img src="img/logo.png" alt="Claty House" title="Logo de Claty House" style="width: 85px; height: 55px;"/></a>
+                        <a href="index.php"><img src="img/logo.png" alt="UDG" title="Logo de UDG" style="width: 100px; height: 100px;"/></a>
                     </div>
 
                     <nav id="nav-menu-container">
@@ -142,8 +142,8 @@
 					<div class="row fullscreen d-flex align-items-center justify-content-start">
 						<div class="banner-content col-lg-7">
 							<h1>
-								Comienza a celebrar con <br>
-								Claty House
+								Comprende mejor <br>
+								tu Servicio Social
 							</h1>
 						</div>
 					</div>
@@ -157,8 +157,8 @@
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-60 col-lg-10">
 							<div class="title text-center">
-								<h1 class="mb-10"> ¿Qué tipo de pasteles hacemos? </h1>
-								<p>Amamos ser Eco-Friendly</p>
+								<h1 class="mb-10"> Nuestras principales dependencias </h1>
+								<p>Recomendaciones</p>
 							</div>
 						</div>
 					</div>
