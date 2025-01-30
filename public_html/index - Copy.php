@@ -47,22 +47,17 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
-                           
-						<meta charset="UTF-8">
-							<meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<title>Fecha y Hora Actual</title>
-
-							<i>Fecha y Hora Actual</i>
-							<p>
-								<?php
-								// Establecer la zona horaria
-								date_default_timezone_set('America/Mexico_City');
-								
-								// Obtener la fecha y hora actual
-								echo "Fecha y Hora: " . date('d-m-Y H:i:s');
-								?>
-							</p>
-
+                            <ul>
+                                <li>
+                                    <i> Lunes &nbsp; & &nbsp; Viernes: 9am a 9pm &nbsp;</i>
+                                </li>
+                                <li>
+                                        <i> Martes &nbsp; - &nbsp; Jueves &nbsp; & &nbsp; Sábado: 9am a 6pm </i>
+                                </li>
+                                <li>
+                                        <i> <a href="https://api.whatsapp.com/send?phone=3322695236" target="_blank"> &nbsp; +52 33 22695236 </a> </i>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -130,9 +125,9 @@
                         <?php } ?>
                         <!-- Aquí iba un </li> -->
                         <li class="menu-active"><a href="#home"> Inicio </a></li>
-						<li> <b> <a href="#Nosotros"> Bienvenidos </a> </b> </li>
-                        <li> <b> <a href="#Productos"> Dependencias </a> </b> </li>
+                        <li> <b> <a href="#Productos"> Productos </a> </b> </li>
                         <li> <b> <a href="#Galeria"> Galería de Imágenes </a> </b> </li>
+                        <li> <b> <a href="#Nosotros"> Nosotros </a> </b> </li>
                         <li> <b> <a href="#Video"> Video </a> </b> </li>
 
                     </ul>
@@ -155,77 +150,6 @@
 				</div>
 			</section>
 			<!-- End banner Area -->
-		
-			<!-- Start review Area -->
-			<section class="review-area section-gap" id="Nosotros">
-				<div class="container">
-					<div class="row d-flex justify-content-center">
-						<div class="menu-content pb-60 col-lg-10">
-							<div class="title text-center">
-								<h1 class="mb-10">Sistema de Administración de Servicio Social.
-                                </h1>
-								<p>La Unidad de Servicio Social de la Universidad de Guadalajara da la bienvenida a este espacio para la administración de los procesos de Servicio Social en la Red Universitaria en sus cinco diferentes fases: Convenios específicos en materia de servicio social, Registro de Programas, Registro de prestadores, Seguimiento y Acreditación.
-
-
-								El Servicio Social debe ser una actividad comprometida con la problemática social, que contribuya a la formación de los futuros profesionistas, apoye el desarrollo estatal, regional y nacional, y propicie mayores oportunidades para el desarrollo de los estudiantes y la comunidad en general.
-
-
-
-
-
-
-                                </p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6 col-md-6 single-review">
-							<img src="img/r1.png" alt="">
-							<div class="title d-flex flex-row">
-								<h4></h4>
-							</div>
-							<p>
-							El servicio social se define como actividad formativa y de aplicación de conocimientos que de manera temporal y obligatoria realizan los alumnos o pasantes de la Universidad y de las instituciones que imparten programas educativos con reconocimiento de validez oficial de estudios, en beneficio de los diferentes sectores de la sociedad.
-							</p>
-						</div>
-						<div class="col-lg-6 col-md-6 single-review">
-							<img src="img/r2.png" alt="">
-							<div class="title d-flex flex-row">
-								<h4></h4>
-								<!-- <div class="star">
-									<span class="fa fa-star checked"></span>
-									<span class="fa fa-star checked"></span>
-									<span class="fa fa-star checked"></span>
-									<span class="fa fa-star checked"></span>
-									<span class="fa fa-star checked"></span>
-								</div> -->
-							</div>
-							<p>
-							El servicio social debe de integrar las dos funciones sustantivas, vincular a la universidad con la sociedad y los sectores que la integran en apoyo a la solución de las problemáticas que se presentan, y a la vez apoyar la formación integral de los estudiantes. Es fundamental en la formación integral del alumno, complementa su etapa formativa al desarrollar una conciencia cívica, de servicio y retribución a la sociedad, además de ser también, una vía de retro-alimentación de la propia Universidad.
-							</p>
-						</div>
-					</div>
-					<div class="row counter-row">
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter">339</h1>
-							<p align="center">Alumnos felices</p>
-						</div>
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">73</h1>
-							<p>Personas que nos recomiendan</p>
-						</div>
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">55</h1>
-							<p>Clientes que nos siguen por Facebook</p>
-						</div>
-						<!--<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">5</h1>
-							<p></p>
-						</div>-->
-					</div>
-				</div>
-			</section>
-			<!-- End review Area -->
 
 			<!-- Start menu Area -->
 			<section class="menu-area section-gap" id="Productos">
@@ -292,7 +216,7 @@
 			</section>
 			<!-- End menu Area -->
 
-			<!-- Start Galería Area -->
+			<!-- Start Galería Area 
 			<section class="gallery-area section-gap" id="Galeria">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
@@ -339,8 +263,76 @@
 					</div>
 				</div>
 			</section>
-			<!--End gallery Area -->
-
+			End gallery Area -->
+			
+			<!-- Start review Area -->
+			<section class="review-area section-gap" id="Nosotros">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-60 col-lg-10">
+							<div class="title text-center">
+								<h1 class="mb-10">Tienda de postres con años de experiencia elaborando productos de repostería como pasteles, galletas, panadería, postres, gelatinas y más.
+                                </h1>
+								<p>Todo lo que ofrecemos a Usted, está elaborado con recetas propias, productos naturales, procesos y métodos tradicionales. Y los ingredientes básicos que nunca faltan: Dedicación, esfuerzo, amor y respeto de todo el personal.
+                                </p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 single-review">
+							<img src="img/r1.png" alt="">
+							<div class="title d-flex flex-row">
+								<h4>Más información</h4>
+								<!-- <div class="star">
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star"></span>
+								</div> -->
+							</div>
+							<p>
+								Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo tempore nesciunt quas quae unde numquam laudantium alias corporis optio odio, accusantium tenetur adipisci quibusdam corrupti. Dolor dolores atque similique corrupti.
+							</p>
+						</div>
+						<div class="col-lg-6 col-md-6 single-review">
+							<img src="img/r2.png" alt="">
+							<div class="title d-flex flex-row">
+								<h4>Información importante</h4>
+								<!-- <div class="star">
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+								</div> -->
+							</div>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, molestias. Optio, explicabo harum, sapiente delectus mollitia repellendus unde illo nemo sunt earum impedit veniam, eaque a necessitatibus provident quia. Ex.
+							</p>
+						</div>
+					</div>
+					<div class="row counter-row">
+						<div class="col-lg-3 col-md-6 single-counter" align="center">
+							<h1 class="counter">3339</h1>
+							<p align="center">Clientes Felices - Demo</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-counter" align="center">
+							<h1 class="counter" align="center">573</h1>
+							<p>Personas que nos recomiendan - Demo</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-counter" align="center">
+							<h1 class="counter" align="center">9670</h1>
+							<p>Pasteles hechos con amor - Demo</p>
+						</div>
+						<div class="col-lg-3 col-md-6 single-counter" align="center">
+							<h1 class="counter" align="center">3265</h1>
+							<p>Clientes que nos siguen por Facebook - Demo</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End review Area -->
 
             
 			<!-- Start video-sec Area -->

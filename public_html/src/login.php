@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if (isset($_SESSION['correo'])) {
-        header('Location: ../index.php');
+        header('Location: ../src/recetario.php');
     }
     if(!isset($_POST['ingresar'])){
 	$correo = (isset($_COOKIE['correo'])) ? $_COOKIE['correo'] : NULL;
@@ -43,16 +43,20 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
+						
 				<div class="login100-form-title" style="background-image: url(../img/IngresoHead.jpg);">
 					<span class="login100-form-title-1">
 						Inicia Sesión
 					</span>
+					<span class="login100-form-title-1">
+						Servicio Social
+					</span>
 				</div>
 
 				<form class="login100-form validate-form" method="post" action="validation.php">
-					<div class="wrap-input100 validate-input m-b-26" data-validate="El Correo es Obligatorio">
-						<span class="label-input100">Correo</span>
-						<input class="input100" type="email" name="correo" placeholder="Ingresa tu correo" required>
+					<div class="wrap-input100 validate-input m-b-26" data-validate="El Código es Obligatorio">
+						<span class="label-input100">Código</span>
+						<input class="input100" type="email" name="correo" placeholder="Ingresa tu código" required>
 						<span class="focus-input100"></span>
 					</div>
 
@@ -88,6 +92,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script src="../js/Ingreso.js"></script>
 
 </body>
