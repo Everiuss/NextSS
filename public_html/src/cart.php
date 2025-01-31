@@ -1,49 +1,146 @@
-<?php
-
-    session_start();
-    if (!isset($_SESSION['correo'])) {
-        header('Location: login.php');
-    }
-    include("db_connection.php");
-        $idusuario = $_SESSION['id_usuario'];
-        $sql = "SELECT * FROM CARRITO INNER JOIN PRODUCTOS ON CARRITO.IdProducto = PRODUCTOS.IdProducto WHERE CARRITO.IdUsuario = '$idusuario'";
-        $result = mysqli_query($conn, $sql);
-        $total = 0;
-        echo "<table>";
-        echo "<tr><td>&nbsp; IdProducto &nbsp;</td><td>&nbsp; Nombre &nbsp;</td><td>&nbsp; Cantidad &nbsp;</td><td>&nbsp; Precio &nbsp;</td></tr>";
-
-        while ($car = mysqli_fetch_assoc($result)) {
-            //echo "<tr><td>".$car["id_Producto"]."</td><td>".$car["Nombre"]."</td><td>".$car["Descripcion"]."</td><td>".$car["Precio"]."</td></tr>";
-            echo "<tr>";
-            echo "<td> &nbsp;".$car["IdProducto"]." &nbsp;</td>";
-            echo "<td> &nbsp;".$car["Nombre"]." &nbsp;</td>";
-            echo "<td> &nbsp;".$car["Cantidad"]." &nbsp;</td>";
-            echo "<td> &nbsp;"."$".$car["Costo"]." MXN"." &nbsp;</td>";
-            $total += $car["Costo"];
-            echo "<td>";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERVICIO SOCIAL UDG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #a2c2e7, #86b3d1, #a2c2e7, #86b3d1);
+            background-size: 800% 800%; /* Más grande para que la animación sea más fluida */
+            animation: gradientAnimation 2s ease infinite; /* Animación más rápida, 2 segundos */
         }
-        echo "<tr>";
-        echo "<tr>";
-        echo "<td></td><td> &nbsp;Total: </td><td>"."&nbsp;$".$total." MXN"."</td>";
-        echo "</table>";
 
-        ?>
-        <form class="login100-form" method="post" action="delete_cart.php">
-        <div class="container-login100-form-btn">
-        <input class="login100-form-btn" type="button" value="Comprar">
-    <a href="../index.php#Productos" style="margin-left: 10%"><input class="login100-form-btn" type="button" value="Seguir viendo productos"></a>
-    <input class="login100-form-btn" type="submit" name="borrar_carrito" value="Borrar carrito"  style="margin-left: 10%">
-		</form>    
-		</div>
+        /* Animación del fondo */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-        
+        .header {
+            background-color: rgba(52, 58, 64, 0.8);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .logout-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            position: absolute;
+            right: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-content {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            background-color: rgba(52, 58, 64, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            width: 150px;
+            text-align: center;
+        }
+
+        .option a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .option a:hover {
+            background-color: #007bff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SERVICIO SOCIAL UDG</h1>
+        <!-- BOTÓN SALIR AL INICIO -->
+        <a href="index.php" class="logout-button">Salir al inicio</a>
+    </div>
+
+    <div class="main-content">
+        <div class="options-container">
+            <!-- Opción 1 -->
+            <div class="option">
+                <a href="#">Datos personales</a>
+            </div>
+            <!-- Opción 2 -->
+            <div class="option">
+                <a href="#">Registro</a>
+            </div>
+            <!-- Opción 3 -->
+            <div class="option">
+                <a href="#">Orden de pago</a>
+            </div>
+            <!-- Opción 4 -->
+            <div class="option">
+                <a href="#">Ofertas disponibles</a>
+            </div>
+            <!-- Opción 5 -->
+            <div class="option">
+                <a href="#">Listado de plazas</a>
+            </div>
+            <!-- Opción 6 -->
+            <div class="option">
+                <a href="#">Acreditación</a>
+            </div>
+            <!-- Opción 7 -->
+            <div class="option">
+                <a href="#">Cambiar contraseña</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
 
 
 
 
-        
-        <!DOCTYPE html>
-        <html lang="es">
+            
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

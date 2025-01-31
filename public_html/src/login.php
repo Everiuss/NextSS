@@ -55,13 +55,13 @@
 
 				<form class="login100-form validate-form" method="post" action="validation.php">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="El Código es Obligatorio">
-						<span class="label-input100">Código</span>
+						<span class="label-input100">Correo:</span>
 						<input class="input100" type="email" name="correo" placeholder="Ingresa tu código" required>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "La Contraseña es Obligatoria">
-						<span class="label-input100">Contraseña</span>
+						<span class="label-input100">Contraseña:</span>
 						<input class="input100" type="password" name="contrasena" placeholder="Ingresa tu Contraseña" required>
 						<span class="focus-input100"></span>
 					</div>
@@ -75,13 +75,13 @@
 						</div>
 					</div>
 					
-					<!--<div class="flex-sb-m w-full p-b-30">
+					<div class="flex-sb-m w-full p-b-30">
 						<label class="label">
 					    <a href="user_register.php" style="text-decoration: none;">
 							¿No tienes una cuenta? <b>Crea una aquí.</b>
 						</a>
 						</label>
-					</div>-->
+					</div>
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit" name="ingresar" value="Iniciar Sesion" align="center" style="padding: 0 125px;">
