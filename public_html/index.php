@@ -31,7 +31,7 @@
 			<link rel="stylesheet" href="css/animate.min.css">
 			<link rel="stylesheet" href="css/owl.carousel.css">
 			<link rel="stylesheet" href="css/main.css">
-
+<!--
             <style>
 
                 #active {
@@ -39,34 +39,101 @@
                     border-radius: 4px
                 }
 			</style>
+			-->
+			<style>
+		<style>
+    #active {
+        background: rgba(255,255,255, 0.15);
+        border-radius: 4px;
+    }
+
+    .banner-area {
+        position: relative;
+    }
+
+    .banner-content h1 {
+        font-size: 80px; /* Hacerlo más grande */
+        font-weight: bold;
+        text-align: center; /* Centrado */
+        color: #fff;
+        animation: fadeIn 5s ease-in-out; /* Cambiar la duración a 5 segundos */
+        margin-top: 150px; /* Espaciado superior mayor para que esté más abajo */
+    }
+
+    .banner-content img {
+        position: absolute;
+        bottom: 20px; /* Colocar la imagen en la parte inferior */
+        left: 20px; /* Colocar la imagen hacia la izquierda */
+        width: 150px; /* Ajusta el tamaño de la imagen */
+        height: auto;
+        z-index: -1; /* Asegura que la imagen esté detrás del título */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px); /* Desplazar más abajo al inicio */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Asegura que el título en dispositivos móviles también se vea grande */
+    @media (max-width: 768px) {
+        .banner-content h1 {
+            font-size: 50px;
+            margin-top: 100px; /* Ajusta también el espaciado en móviles */
+        }
+
+        .banner-content img {
+            width: 100px; /* Ajusta el tamaño de la imagen en móviles */
+            left: 10px; /* Mueve la imagen más cerca del borde en dispositivos pequeños */
+        }
+    }
+</style>
+
+<!-- HTML -->
+<section class="banner-area" id="home">
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-start">
+            <div class="banner-content col-lg-7">
+                <h1>Comprende mejor <br> tu Servicio Social</h1>
+                <img src="img/logo.png" alt="Logo" />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 		</head>
 		<body>
 
             <header id="header" id="home">
             <div class="header-top">
-                <div class="container">
-                    <div class="row justify-content-end">
-                        <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
-                           
+			<div class="container">
+				<div class="row justify-content-end">
+					<div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
 						<meta charset="UTF-8">
-							<meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<title>Fecha y Hora Actual</title>
+						<meta name="viewport" content="width=device-width, initial-scale=1.0">
+						<title>Fecha y Hora Actual</title>
+						<i style="color: white;">Fecha y Hora Actual</i>
+						<p style="color: white;">
+							<?php
+							// Establecer la zona horaria
+							date_default_timezone_set('America/Mexico_City');
+							
+							// Obtener la fecha y hora actual
+							echo "Fecha y Hora: " . date('d-m-Y H:i:s');
+							?>
+						</p>
+					</div>
+				</div>
+			</div>
+</div>
 
-							<i>Fecha y Hora Actual</i>
-							<p>
-								<?php
-								// Establecer la zona horaria
-								date_default_timezone_set('America/Mexico_City');
-								
-								// Obtener la fecha y hora actual
-								echo "Fecha y Hora: " . date('d-m-Y H:i:s');
-								?>
-							</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="container">
                 <div class="row align-items-center justify-content-between ">
                     <div id="logo">
@@ -77,24 +144,25 @@
                     <ul class="nav-menu">
 
                         <?php
-                            if (isset($_SESSION['correo'])) { ?>
-                                <li class="menu-has-children">
-                                    <a href="#home" id="active"><?php echo $_SESSION['usuario'];?></a>
-                                    <ul style="overflow: auto; height: auto; z-index: 999">
-                                    <?php
-                                        if ($_SESSION['rol'] != "Administrador") { ?>
-                                            <li><a href="src/cart.php">Carrito</a></li>
-                                        <?php } ?>
-                                        <li><a href="src/logout.php">Cerrar Sesión</a></li>
-                                    </ul>
-                                </li>
-                                <?php
-                                    }
-                                    else { ?>
-                                    <li class="menu-has-children">
-                                        <a href="src/login.php" id="active"><?php echo "Inicia sesión";?></a>
-                                    </li>
-                                <?php } ?>
+							if (isset($_SESSION['correo'])) { ?>
+								<li class="menu-has-children">
+									<!-- Reemplazar el nombre de usuario por "HOLA" -->
+									<a href="#home" id="active"><?php echo "HOLA"; ?></a>
+									<ul style="overflow: auto; height: auto; z-index: 999">
+									<?php
+										if ($_SESSION['rol'] != "Administrador") { ?>
+											<li><a href="src/cart.php">Carrito</a></li>
+										<?php } ?>
+										<li><a href="src/logout.php">Cerrar Sesión</a></li>
+									</ul>
+								</li>
+							<?php
+							} else { ?>
+								<li class="menu-has-children">
+									<a href="src/login.php" id="active"><?php echo "Inicia sesión"; ?></a>
+								</li>
+							<?php } ?>
+							
                         <?php
 						
                         if(isset($_SESSION['correo']) AND $_SESSION['rol'] === "Administrador") { ?>
@@ -130,9 +198,9 @@
                         <?php } ?>
                         <!-- Aquí iba un </li> -->
                         <li class="menu-active"><a href="#home"> Inicio </a></li>
-						<li> <b> <a href="#Nosotros"> Bienvenidos </a> </b> </li>
-                        <li> <b> <a href="#Productos"> Dependencias </a> </b> </li>
-                        <li> <b> <a href="#Galeria"> Galería de Imágenes </a> </b> </li>
+						<li> <b> <a href="#Nosotros"> Bienvenida </a> </b> </li>
+                        <!-- <li> <b> <a href="#Productos"> Encuentranos </a> </b> </li> </li> -->
+                        <!--<li> <b> <a href="#Galeria"> Galería de Imágenes </a> </b> </li>-->
                         <li> <b> <a href="#Video"> Video </a> </b> </li>
 
                     </ul>
@@ -141,7 +209,7 @@
             </div>
             </header><!-- #header -->
 
-			<!-- start banner Area -->
+			<!-- start banner Area 
 			<section class="banner-area" id="home">
 				<div class="container">
 					<div class="row fullscreen d-flex align-items-center justify-content-start">
@@ -153,7 +221,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 			<!-- End banner Area -->
 		
 			<!-- Start review Area -->
@@ -164,7 +232,7 @@
 							<div class="title text-center">
 								<h1 class="mb-10">Sistema de Administración de Servicio Social.
                                 </h1>
-								<p>La Unidad de Servicio Social de la Universidad de Guadalajara da la bienvenida a este espacio para la administración de los procesos de Servicio Social en la Red Universitaria en sus cinco diferentes fases: Convenios específicos en materia de servicio social, Registro de Programas, Registro de prestadores, Seguimiento y Acreditación.
+								<p><br>La Unidad de Servicio Social de la Universidad de Guadalajara da la bienvenida a este espacio para la administración de los procesos de Servicio Social en la Red Universitaria en sus cinco diferentes fases: Convenios específicos en materia de servicio social, Registro de Programas, Registro de prestadores, Seguimiento y Acreditación.
 
 
 								El Servicio Social debe ser una actividad comprometida con la problemática social, que contribuya a la formación de los futuros profesionistas, apoye el desarrollo estatal, regional y nacional, y propicie mayores oportunidades para el desarrollo de los estudiantes y la comunidad en general.
@@ -180,7 +248,6 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 single-review">
-							<img src="img/r1.png" alt="">
 							<div class="title d-flex flex-row">
 								<h4></h4>
 							</div>
@@ -189,7 +256,7 @@
 							</p>
 						</div>
 						<div class="col-lg-6 col-md-6 single-review">
-							<img src="img/r2.png" alt="">
+						
 							<div class="title d-flex flex-row">
 								<h4></h4>
 								<!-- <div class="star">
@@ -205,94 +272,92 @@
 							</p>
 						</div>
 					</div>
-					<div class="row counter-row">
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter">339</h1>
-							<p align="center">Alumnos felices</p>
+					<div class="row counter-row justify-content-center">
+						<div class="col-lg-3 col-md-6 single-counter text-center">
+							<h1 id="counter-1" class="counter">339</h1>
+							<p>Alumnos felices</p>
 						</div>
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">73</h1>
+						<div class="col-lg-3 col-md-6 single-counter text-center">
+							<h1 id="counter-2" class="counter">73</h1>
 							<p>Personas que nos recomiendan</p>
 						</div>
-						<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">55</h1>
+						<div class="col-lg-3 col-md-6 single-counter text-center">
+							<h1 id="counter-3" class="counter">55</h1>
 							<p>Clientes que nos siguen por Facebook</p>
 						</div>
-						<!--<div class="col-lg-3 col-md-6 single-counter" align="center">
-							<h1 class="counter" align="center">5</h1>
-							<p></p>
-						</div>-->
 					</div>
+
+					<script>
+					// Función para actualizar los contadores
+					function updateCounters() {
+						// Recuperar los contadores del localStorage, o inicializar a 0 si no existen
+						let count1 = localStorage.getItem('counter1');
+						let count2 = localStorage.getItem('counter2');
+						let count3 = localStorage.getItem('counter3');
+
+						if (!count1) {
+							localStorage.setItem('counter1', 339);  // Valor inicial
+							count1 = 339;
+						} else {
+							count1 = parseInt(count1) + 1;  // Incrementar en 1
+							localStorage.setItem('counter1', count1);
+						}
+
+						if (!count2) {
+							localStorage.setItem('counter2', 73);  // Valor inicial
+							count2 = 73;
+						} else {
+							count2 = parseInt(count2) + 1;  // Incrementar en 1
+							localStorage.setItem('counter2', count2);
+						}
+
+						if (!count3) {
+							localStorage.setItem('counter3', 55);  // Valor inicial
+							count3 = 55;
+						} else {
+							count3 = parseInt(count3) + 1;  // Incrementar en 1
+							localStorage.setItem('counter3', count3);
+						}
+
+						// Actualizar los elementos en la página
+						document.getElementById('counter-1').innerText = count1;
+						document.getElementById('counter-2').innerText = count2;
+						document.getElementById('counter-3').innerText = count3;
+					}
+
+					// Llamar a la función cuando la página se haya cargado
+					window.onload = updateCounters;
+					</script>
+
+
 				</div>
 			</section>
 			<!-- End review Area -->
 
 			<!-- Start menu Area -->
-			<section class="menu-area section-gap" id="Productos">
+			<section class="menu-area section-gap" id="Productos" style="background-color: white;">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-60 col-lg-10">
 							<div class="title text-center">
-								<h1 class="mb-10"> Nuestras principales dependencias </h1>
-								<p>Recomendaciones</p>
+								<h1 class="mb-10"> Entra desde tu dispositivo móvil o computadora </h1>
+								<p>Distintas visualizaciones</p>
+							</div>
+							<div class="row d-flex justify-content-center mt-4">
+								<div class="d-flex justify-content-center align-items-center flex-wrap">
+									<img src="img/cel.png" alt="Imagen 1" class="img-fluid" style="max-width: 400px; margin: 10px;">
+									<img src="img/pc.png" alt="Imagen 2" class="img-fluid" style="max-width: 700px; margin: 10px;">
+								</div>
 							</div>
 						</div>
 					</div>
-                    <div class="row">
-                    <?php
-                            include("src/db_connection.php");
-                            
-                            $obtener_producto = "SELECT * FROM PRODUCTOS";
-                            
-                            
-                            if($productos = $conn -> query($obtener_producto)) {
-                                if($productos -> num_rows > 0) {
-                                    while($pr = $productos -> fetch_array()) {
-                    ?>
-						<div class="col-lg-4">
-							<div class="single-menu">
-								<div class="title-div justify-content-between d-flex">
-            
-									<h4><?php echo $pr['Nombre']; ?></h4>
-									<p class="price float-right">
-										<?php echo "$".$pr['Costo']." MXN"; ?>
-									</p>
-								</div>
-								<p>
-									<?php echo $pr['Informacion']; ?>
-								</p>
-								<p style="margin-top: 4%;">
-                                    <?php
-                                        if($pr['CantidadActual'] > "0") {?>
-									<?php echo "Cantidad actual: ".$pr['CantidadActual']; ?>
-                                    <?php
-                                        }
-                                        else {
-                                            echo "<b>NO SE ENCUENTRA DISPONIBLE.</b>";
-                                        }?>
-								</p>
-                                <?php 
-                                    if (isset($_SESSION['correo']) AND $_SESSION['rol'] != "Administrador") {?>
-                                <form action="src/add_cart.php" method="post">
-                                    <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['id_usuario'];?>">
-                                    <input type="hidden" name="id_producto" value="<?php echo $pr['IdProducto'];?>">
-                                    <input type="hidden" name="costo" value="<?php echo $pr['Costo'];?>">
-                                    <?php if ($pr['CantidadActual'] > "0") { ?>
-                                    <input type="number" name="cantidad" min="1" max="<?php echo $pr['CantidadActual']?>" value="1">
-                                        <input class="login100-form-btn" style="margin-top:4%;" type="submit" name="agregar_carrito" value="Agregar al carrito">
-                                    <?php } ?>
-                                    </form>
-                                <?php }?>
-                                </div>
-							</div>
-						
-                        <?php }}} ?>
-					</div>
 				</div>
 			</section>
+
 			<!-- End menu Area -->
 
 			<!-- Start Galería Area -->
+			<!--
 			<section class="gallery-area section-gap" id="Galeria">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
@@ -339,33 +404,37 @@
 					</div>
 				</div>
 			</section>
+			-->
 			<!--End gallery Area -->
 
-
-            
 			<!-- Start video-sec Area -->
 			<section class="video-sec-area pb-100 pt-40" id="Video">
 				<div class="container">
-					<div class="row justify-content-start align-items-center">
-						<div class="col-lg-6 video-right justify-content-center align-items-center d-flex">
-							<div class="overlay overlay-bg">
-							<a class="play-btn" href="https://www.youtube.com/watch?v=YJmGusVyDLs">
-							    <center><img class="img-fluid" src="img/play-icon.png" alt=""></a></center>
-							</div>
-						</div>
-						<div class="col-lg-6 video-left">
+					<!-- Título centrado -->
+					<div class="row">
+						<div class="col-12 text-center">
 							<h6>UDG Virtual</h6>
 							<h1>Tutorial Servicio Social</h1>
-							<p><span></span></p>
-							<p>
-                                
-                                <b></b>
-							</p>
-							<img class="img-fluid" src="img/logoF.png" alt="">
+						</div>
+					</div>
+					<!-- Video incrustado centrado -->
+					<div class="row justify-content-center align-items-center mt-4">
+						<div class="col-lg-8 text-center">
+							<iframe 
+								width="100%" 
+								height="400px" 
+								src="https://www.youtube.com/embed/YJmGusVyDLs" 
+								title="YouTube video player" 
+								frameborder="0" 
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+								allowfullscreen>
+							</iframe>
 						</div>
 					</div>
 				</div>
 			</section>
+
+
 			<!-- End video-sec Area -->
 
 			<!-- Start blog Area -->
@@ -419,6 +488,10 @@
 			<footer class="footer-area section-gap">
 				<div class="container">
                 <div class="row justify-content-end">
+				<div class="d-flex justify-content-start align-items-center flex-wrap">
+					<img src="img/contacto_udg.png" alt="Imagen 1" class="img-fluid" style="max-width: 800px; margin: 10px;">
+				</div>
+												<!-- 
                         <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
                             <ul>
                                 <li>
@@ -438,7 +511,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
 				</div>
 			</footer>
 
