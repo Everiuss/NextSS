@@ -42,7 +42,7 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(../img/IngresoHead.jpg);">
 					<span class="login100-form-title-1">
-						Crea una cuenta en Claty House
+						CREAR CUENTA SERVICIO SOCIAL
 					</span>
                 </div>
 
@@ -97,8 +97,8 @@
         </div>
         
         <div class="wrap-input100 m-b-26">
-        <span class="label-input100">Foto de perfil:</span>
-        <input type="text" class="input100" name="imagen" placeholder="Ingresa tu Foto" required/>
+        <span class="label-input100">Código alumno:</span>
+        <input type="text" class="input100" name="imagen" placeholder="Ingresa tu código" required/>
         <span class="focus-input100"></span>
         </div> 
             

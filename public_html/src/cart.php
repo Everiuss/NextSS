@@ -11,11 +11,10 @@
             padding: 0;
             height: 100vh;
             background: linear-gradient(45deg, #a2c2e7, #86b3d1, #a2c2e7, #86b3d1);
-            background-size: 800% 800%; /* Más grande para que la animación sea más fluida */
-            animation: gradientAnimation 2s ease infinite; /* Animación más rápida, 2 segundos */
+            background-size: 800% 800%;
+            animation: gradientAnimation 2s ease infinite;
         }
 
-        /* Animación del fondo */
         @keyframes gradientAnimation {
             0% {
                 background-position: 0% 50%;
@@ -90,44 +89,35 @@
         .option a:hover {
             background-color: #007bff;
         }
-
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>SERVICIO SOCIAL UDG</h1>
-        <!-- BOTÓN SALIR AL INICIO -->
         <a href="index.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="main-content">
         <div class="options-container">
-            <!-- Opción 1 -->
             <div class="option">
-                <a href="#">Datos personales</a>
+                <a href="datos_personales.php">Datos personales</a>
             </div>
-            <!-- Opción 2 -->
             <div class="option">
                 <a href="#">Registro</a>
             </div>
-            <!-- Opción 3 -->
             <div class="option">
                 <a href="#">Orden de pago</a>
             </div>
-            <!-- Opción 4 -->
             <div class="option">
                 <a href="#">Ofertas disponibles</a>
             </div>
-            <!-- Opción 5 -->
             <div class="option">
                 <a href="#">Listado de plazas</a>
             </div>
-            <!-- Opción 6 -->
             <div class="option">
                 <a href="#">Acreditación</a>
             </div>
-            <!-- Opción 7 -->
             <div class="option">
                 <a href="#">Cambiar contraseña</a>
             </div>
@@ -137,10 +127,12 @@
 </body>
 </html>
 
+ <!---------------------------- AQUI COMIENZA LO QUE PASA AL DAR CLIC EN DATOS PERSONALES ------------------------------->            
 
 
 
-            
+
+ <!-------------------------------------------------- AQUI COMIENZA EL CHATBOT ------------------------------->            
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
