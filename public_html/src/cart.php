@@ -101,7 +101,7 @@
     <div class="main-content">
         <div class="options-container">
             <div class="option">
-                <a href="/public_html/src/perfil_usuario.php">Datos Personales </a>
+                <a href="/public_html/src/datos_personales.php">Datos Personales </a>
             </div>
             <div class="option">
                 <a href="/public_html/src/registro.php">Registro</a>
@@ -216,37 +216,44 @@
         </div>
     </div>
 
+
     <script>
-        // Mostrar u ocultar el chat al hacer clic en el botón
-        document.getElementById("chatbot-btn").addEventListener("click", function() {
-            let chatbox = document.getElementById("chatbox");
-            chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
+    document.getElementById("chatbot-btn").addEventListener("click", function() {
+        let chatbox = document.getElementById("chatbox");
+        chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
+    });
+
+    function sendMessage() {
+        let input = document.getElementById("chat-input");
+        let message = input.value.trim();
+        if (message === "") return;
+
+        let chatBody = document.getElementById("chat-body");
+        chatBody.innerHTML += `<div style="text-align:right; background:#007bff; color:white; padding:5px; border-radius:10px; margin:5px 0;">Tú: ${message}</div>`;
+
+        fetch("chatbot.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `message=${encodeURIComponent(message)}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            chatBody.innerHTML += `<div style="text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;">Bot: ${data}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
         });
 
-        // Enviar mensaje al backend PHP
-        document.getElementById("send-btn").addEventListener("click", function() {
-            let input = document.getElementById("chat-input");
-            let message = input.value.trim();
-            if (message === "") return;
+        input.value = "";
+    }
 
-            let chatBody = document.getElementById("chat-body");
-            chatBody.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
-
-            // Enviar al backend
-            fetch("chatbot.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `message=${encodeURIComponent(message)}`
-            })
-            .then(response => response.text())
-            .then(data => {
-                chatBody.innerHTML += `<div><strong>Bot:</strong> ${data}</div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            });
-
-            input.value = "";
-        });
-    </script>
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+    
+    document.getElementById("chat-input").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+            event.preventDefault();
+        }
+    });
+</script>
 
 </body>
 </html>		
