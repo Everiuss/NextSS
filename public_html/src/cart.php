@@ -107,7 +107,7 @@
                 <a href="/public_html/src/registro.php">Registro</a>
             </div>
             <div class="option">
-                <a href="#">Orden de pago</a>
+                <a href="../orden_pago.php">Orden de pago</a>
             </div>
             <div class="option">
                 <a href="#">Ofertas disponibles</a>
