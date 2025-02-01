@@ -9,7 +9,7 @@
 		<!-- Favicon-->
 		<link rel="shortcut icon" href="img/icono.png">
 		<!-- Author Meta -->
-		<meta name="author" content="Equipo ">
+		<meta name="author" content="Equipo Osa Mayor">
 		<!-- Meta Description -->
 		<meta name="description" content="Una pagina sin animo de lucro, forma parte de un proyecto escolar.">
 		<!-- Meta Keyword -->
@@ -146,12 +146,12 @@
                         <?php
 							if (isset($_SESSION['correo'])) { ?>
 								<li class="menu-has-children">
-									<!-- Reemplazar el nombre de usuario por "HOLA" -->
-									<a href="#home" id="active"><?php echo "HOLA :)"; ?></a>
+									<!-- Reemplazar el nombre de usuario por "MENÚ" -->
+									<a href="#home" id="active"><?php echo "MENÚ"; ?></a>
 									<ul style="overflow: auto; height: auto; z-index: 999">
 									<?php
 										if ($_SESSION['rol'] != "Administrador") { ?>
-											<li><a href="src/cart.php">MENU PRINCIPAL</a></li>
+											<li><a href="src/cart.php">Carrito</a></li>
 										<?php } ?>
 										<li><a href="src/logout.php">Cerrar Sesión</a></li>
 									</ul>
@@ -201,7 +201,7 @@
 						<li> <b> <a href="#Nosotros"> Bienvenida </a> </b> </li>
                         <!-- <li> <b> <a href="#Productos"> Encuentranos </a> </b> </li> </li> -->
                         <!--<li> <b> <a href="#Galeria"> Galería de Imágenes </a> </b> </li>-->
-                        <li> <b> <a href="#Video"> Video Tutorial </a> </b> </li>
+                        <li> <b> <a href="#Video"> Video </a> </b> </li>
 
                     </ul>
                     </nav><!-- #nav-menu-container -->
@@ -209,6 +209,21 @@
             </div>
             </header><!-- #header -->
 
+			<!-- start banner Area 
+			<section class="banner-area" id="home">
+				<div class="container">
+					<div class="row fullscreen d-flex align-items-center justify-content-start">
+						<div class="banner-content col-lg-7">
+							<h1>
+								Comprende mejor <br>
+								tu Servicio Social
+							</h1>
+						</div>
+					</div>
+				</div>
+			</section> -->
+			<!-- End banner Area -->
+		
 			<!-- Start review Area -->
 			<section class="review-area section-gap" id="Nosotros">
 				<div class="container">
@@ -218,7 +233,15 @@
 								<h1 class="mb-10">Sistema de Administración de Servicio Social.
                                 </h1>
 								<p><br>La Unidad de Servicio Social de la Universidad de Guadalajara da la bienvenida a este espacio para la administración de los procesos de Servicio Social en la Red Universitaria en sus cinco diferentes fases: Convenios específicos en materia de servicio social, Registro de Programas, Registro de prestadores, Seguimiento y Acreditación.
+
+
 								El Servicio Social debe ser una actividad comprometida con la problemática social, que contribuya a la formación de los futuros profesionistas, apoye el desarrollo estatal, regional y nacional, y propicie mayores oportunidades para el desarrollo de los estudiantes y la comunidad en general.
+
+
+
+
+
+
                                 </p>
 							</div>
 						</div>
@@ -236,6 +259,13 @@
 						
 							<div class="title d-flex flex-row">
 								<h4></h4>
+								<!-- <div class="star">
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+								</div> -->
 							</div>
 							<p>
 							El servicio social debe de integrar las dos funciones sustantivas, vincular a la universidad con la sociedad y los sectores que la integran en apoyo a la solución de las problemáticas que se presentan, y a la vez apoyar la formación integral de los estudiantes. Es fundamental en la formación integral del alumno, complementa su etapa formativa al desarrollar una conciencia cívica, de servicio y retribución a la sociedad, además de ser también, una vía de retro-alimentación de la propia Universidad.
@@ -326,6 +356,57 @@
 
 			<!-- End menu Area -->
 
+			<!-- Start Galería Area -->
+			<!--
+			<section class="gallery-area section-gap" id="Galeria">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-60 col-lg-10">
+							<div class="title text-center">
+								<h1 class="mb-10">Te brindamos el mejor servicio</h1>
+                                <?php
+                                if (isset($_SESSION['correo'])) { ?>
+								    <p> Dando lo mejor para ti: &nbsp; <?php echo $_SESSION['nombre'];?>  </p>
+                                <?php
+                                }
+                                else { ?>
+                                    <p> Dando lo mejor para ti.</p>
+                                <?php } ?>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<a href="img/img1.jpg" class="img-pop-home">
+								<img class="img-fluid" src="img/img1.jpg" alt="">
+							</a>
+							<a href="img/img2.jpg" class="img-pop-home">
+								<img class="img-fluid" src="img/img2.jpg" alt="">
+							</a>
+						</div>
+						<div class="col-lg-8">
+							<a href="img/img3.jpg" class="img-pop-home">
+								<img class="img-fluid" src="img/img3.jpg" alt="">
+							</a>
+							<div class="row">
+								<div class="col-lg-6">
+									<a href="img/img4.jpg" class="img-pop-home">
+										<img class="img-fluid" src="img/img4.jpg" alt="">
+									</a>
+								</div>
+								<div class="col-lg-6">
+									<a href="img/img5.jpg" class="img-pop-home">
+										<img class="img-fluid" src="img/img5.jpg" alt="">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			-->
+			<!--End gallery Area -->
+
 			<!-- Start video-sec Area -->
 			<section class="video-sec-area pb-100 pt-40" id="Video">
 				<div class="container">
@@ -356,6 +437,53 @@
 
 			<!-- End video-sec Area -->
 
+			<!-- Start blog Area -->
+			<!-- <section class="blog-area section-gap" id="Galeria">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-60 col-lg-10">
+							<div class="title text-center">
+								<h1 class="mb-10">Galeria</h1>
+								<p> ¡¡Síguenos para no perderte NINGUNA promoción!! </p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 single-blog">
+							<img class="img-fluid" src="img/b1.jpg" alt="">
+							<ul class="post-tags">
+								<li><a href="#">Claty House</a></li>
+								<li><a href="#">Estilo de Vida</a></li>
+							</ul>
+							<a href="#"><h4>Lorem ipsum dolor sit amet consectetur adipisicing elit</h4></a>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore.
+							</p>
+							<p class="post-date">
+								22 de Marzo del 2023
+							</p>
+						</div>
+						<div class="col-lg-6 col-md-6 single-blog">
+							<img class="img-fluid" src="img/b2.jpg" alt="">
+							<ul class="post-tags">
+								<li><a href="#">Claty House</a></li>
+								<li><a href="#">Puro</a></li>
+								<li><a href="#">Estilo de Vida</a></li>
+							</ul>
+							<a href="#"><h4>Lorem ipsum dolor sit amet consectetur adipisicing elit</h4></a>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore.
+							</p>
+							<p class="post-date">
+								23 de Marzo del 2023
+							</p>
+						</div>
+					</div>
+				</div>
+			</section> -->
+			<!-- End blog Area -->
+
+
 			<!-- start footer Area -->
 			<footer class="footer-area section-gap">
 				<div class="container">
@@ -363,7 +491,27 @@
 				<div class="d-flex justify-content-start align-items-center flex-wrap">
 					<img src="img/contacto_udg.png" alt="Imagen 1" class="img-fluid" style="max-width: 800px; margin: 10px;">
 				</div>
-					
+												<!-- 
+                        <div class="col-lg-8 col-sm-4 col-8 header-top-right no-padding">
+                            <ul>
+                                <li>
+                                    <i> Lunes &nbsp; & &nbsp; Viernes: 9am a 9pm </i>
+                                </li>
+                                <li>
+                                        <i> Martes &nbsp; - &nbsp; Jueves &nbsp; & &nbsp; Sábado: 9am a 6pm </i>
+                                </li>
+                                <li>
+                                        <i> <a href="https://api.whatsapp.com/send?phone=3322695236" target="_blank"> &nbsp; +52 33 22695236 </a> </i>
+                                </li>
+                                <li>
+                                    <i> <a href="https://www.facebook.com/claty.house" target="_blank">Facebook</a></i>
+                                </li>
+                                <li>
+                                    <i> <a href="https://www.instagram.com/claty.house/" target="_blank">Instagram</a></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>-->
 				</div>
 			</footer>
 

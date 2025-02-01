@@ -95,20 +95,19 @@
 
     <div class="header">
         <h1>SERVICIO SOCIAL UDG</h1>
-        <a href="index.php" class="logout-button">Salir al inicio</a>
+        <a href="../index.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="main-content">
         <div class="options-container">
             <div class="option">
-                <a href="datos_personales.php">Datos personales</a>
+                <a href="/public_html/src/perfil_usuario.php">Datos Personales </a>
             </div>
             <div class="option">
-                <a href="#">Registro</a>
+                <a href="/public_html/src/registro.php">Registro</a>
             </div>
-            <div class="options-container">
-                <a href="orden_pago.php">Orden de pago</a>
-                <!-- <a href="#">Orden de pago</a> -->
+            <div class="option">
+                <a href="#">Orden de pago</a>
             </div>
             <div class="option">
                 <a href="#">Ofertas disponibles</a>
