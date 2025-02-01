@@ -106,8 +106,9 @@
             <div class="option">
                 <a href="#">Registro</a>
             </div>
-            <div class="option">
-                <a href="#">Orden de pago</a>
+            <div class="options-container">
+                <a href="orden_pago.php">Orden de pago</a>
+                <!-- <a href="#">Orden de pago</a> -->
             </div>
             <div class="option">
                 <a href="#">Ofertas disponibles</a>
