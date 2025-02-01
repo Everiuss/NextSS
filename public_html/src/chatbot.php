@@ -3,6 +3,22 @@ session_start();
 
 header("Content-Type: text/plain; charset=UTF-8");
 
+// Justificación del chatbot basado en árboles de decisión
+// 
+// Este chatbot se desarrolla como parte del Módulo 2 de Sistemas Inteligentes, cumpliendo con el criterio 2.1.9 Árboles de decisión.
+// Los árboles de decisión permiten modelar el flujo de conversación del chatbot mediante una estructura jerárquica de decisiones,
+// lo que facilita la navegación y personalización de respuestas según las necesidades del usuario.
+// 
+// Modelo matemático:
+// El árbol de decisiones se representa como un grafo dirigido donde cada nodo interno representa una pregunta
+// y cada hoja representa una respuesta final. Se modela utilizando estructuras condicionales en PHP y se almacena
+// en sesiones para mantener el contexto de la conversación.
+// 
+// Algoritmos empleados:
+// Se ha elegido un árbol de decisiones debido a su capacidad de estructurar respuestas predefinidas basadas en la interacción del usuario.
+// Esto permite una toma de decisiones clara y jerárquica sin necesidad de entrenamiento con datos previos, optimizando así el rendimiento
+// en un entorno de servicio social.
+
 // Pregunta inicial si no hay sesión activa
 if (!isset($_SESSION['step'])) {
     $_SESSION['step'] = 'inicio';
