@@ -1,43 +1,3 @@
-<?php
-    session_start();
-    if (!isset($_SESSION['correo'])) {
-        header('Location: login.php');
-        exit;
-    }
-
-    include("db_connection.php");
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $ciclo_servicio = mysqli_real_escape_string($conn, $_POST['ciclo_servicio']);
-        $centro_universitario = mysqli_real_escape_string($conn, $_POST['centro_universitario']);
-        $carrera = mysqli_real_escape_string($conn, $_POST['carrera']);
-        $creditos_requeridos = mysqli_real_escape_string($conn, $_POST['creditos_requeridos']);
-        $codigo = mysqli_real_escape_string($conn, $_POST['codigo']);
-        $nombre_alumno = mysqli_real_escape_string($conn, $_POST['nombre_alumno']);
-        $ciclo_admision = mysqli_real_escape_string($conn, $_POST['ciclo_admision']);
-        $ultimo_ciclo_cursado = mysqli_real_escape_string($conn, $_POST['ultimo_ciclo_cursado']);
-        $estatus = mysqli_real_escape_string($conn, $_POST['estatus']);
-        $promedio = mysqli_real_escape_string($conn, $_POST['promedio']);
-        $creditos_acumulados = mysqli_real_escape_string($conn, $_POST['creditos_acumulados']);
-        $porcentaje = mysqli_real_escape_string($conn, $_POST['porcentaje']);
-
-        $query = "INSERT INTO datos_registro (
-            ciclo_servicio, centro_universitario, carrera, creditos_requeridos, codigo, 
-            nombre_alumno, ciclo_admision, ultimo_ciclo_cursado, estatus, promedio, 
-            creditos_acumulados, porcentaje
-        ) VALUES (
-            '$ciclo_servicio', '$centro_universitario', '$carrera', '$creditos_requeridos', '$codigo', 
-            '$nombre_alumno', '$ciclo_admision', '$ultimo_ciclo_cursado', '$estatus', '$promedio', 
-            '$creditos_acumulados', '$porcentaje'
-        )";
-
-        if ($conn->query($query)) {
-            echo '<script>alert("Datos registrados con éxito.");</script>';
-        } else {
-            echo '<script>alert("Error al registrar los datos: ' . $conn->error . '");</script>';
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -62,12 +22,54 @@
             color: white;
             padding: 15px;
             text-align: center;
+            position: relative;
         }
         .btn-primary {
             background-color: #007bff;
             border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
+        }
+        .form-table {
+            width: 100%;
+            border-spacing: 15px;
+        }
+        .form-table td {
+            vertical-align: top;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        /* Nuevo estilo para el botón "Volver al Perfil" */
+        .logout-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        .logout-button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -75,59 +77,82 @@
 <body>
     <div class="header">
         <h1>Registro de Datos - Servicio Social</h1>
-        <a href="perfil_usuario.php" class="btn btn-secondary" style="position: absolute; right: 20px; top: 20px;">Volver al Perfil</a>
+        <a href="cart.php" class="logout-button">Volver al Perfil</a>
     </div>
     <div class="container">
         <form method="POST" action="registro_datos.php">
-            <div class="form-group">
-                <label for="ciclo_servicio">Ciclo de registro al servicio:</label>
-                <input type="text" class="form-control" id="ciclo_servicio" name="ciclo_servicio" required>
-            </div>
-            <div class="form-group">
-                <label for="centro_universitario">Centro Universitario:</label>
-                <input type="text" class="form-control" id="centro_universitario" name="centro_universitario" required>
-            </div>
-            <div class="form-group">
-                <label for="carrera">Carrera:</label>
-                <input type="text" class="form-control" id="carrera" name="carrera" required>
-            </div>
-            <div class="form-group">
-                <label for="creditos_requeridos">Créditos requeridos:</label>
-                <input type="number" class="form-control" id="creditos_requeridos" name="creditos_requeridos" required>
-            </div>
-            <div class="form-group">
-                <label for="codigo">Código:</label>
-                <input type="text" class="form-control" id="codigo" name="codigo" required>
-            </div>
-            <div class="form-group">
-                <label for="nombre_alumno">Alumno (nombre completo):</label>
-                <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno" required>
-            </div>
-            <div class="form-group">
-                <label for="ciclo_admision">Ciclo de admisión:</label>
-                <input type="text" class="form-control" id="ciclo_admision" name="ciclo_admision" required>
-            </div>
-            <div class="form-group">
-                <label for="ultimo_ciclo_cursado">Último ciclo cursado:</label>
-                <input type="text" class="form-control" id="ultimo_ciclo_cursado" name="ultimo_ciclo_cursado" required>
-            </div>
-            <div class="form-group">
-                <label for="estatus">Estatus:</label>
-                <input type="text" class="form-control" id="estatus" name="estatus" required>
-            </div>
-            <div class="form-group">
-                <label for="promedio">Promedio:</label>
-                <input type="number" step="0.01" class="form-control" id="promedio" name="promedio" required>
-            </div>
-            <div class="form-group">
-                <label for="creditos_acumulados">Créditos acumulados:</label>
-                <input type="number" class="form-control" id="creditos_acumulados" name="creditos_acumulados" required>
-            </div>
-            <div class="form-group">
-                <label for="porcentaje">Porcentaje:</label>
-                <input type="number" class="form-control" id="porcentaje" name="porcentaje" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar Datos</button>
+            <table class="form-table">
+                <tr>
+                    <td>
+                        <h4>Datos del Alumno</h4>
+                        <div class="form-group">
+                            <label for="codigo">Código:</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre_alumno">Nombre completo:</label>
+                            <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="curp">CURP:</label>
+                            <input type="text" class="form-control" id="curp" name="curp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="domicilio">Domicilio:</label>
+                            <input type="text" class="form-control" id="domicilio" name="domicilio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                            <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="colonia">Colonia:</label>
+                            <input type="text" class="form-control" id="colonia" name="colonia" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="codigo_postal">Código Postal:</label>
+                            <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País:</label>
+                            <input type="text" class="form-control" id="pais" name="pais" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <input type="text" class="form-control" id="estado" name="estado" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ciudad">Ciudad:</label>
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                        <h4>Datos del Trabajo</h4>
+                        <div class="form-group">
+                            <label for="trabaja">¿Trabaja?</label>
+                            <select class="form-control" id="trabaja" name="trabaja" required>
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa:</label>
+                            <input type="text" class="form-control" id="empresa" name="empresa">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar Datos</button>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </body>
