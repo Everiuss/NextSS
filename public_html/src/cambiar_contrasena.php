@@ -100,15 +100,11 @@
 
     <div class="header">
         <h1>SERVICIO SOCIAL UDG</h1>
-        <a href="../index.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="container">
-        <h2>Orden de Pago</h2>
-        <p>Aquí puedes descargar tu orden de pago para el servicio social.</p>
-
-        <!-- Botón simulado para descargar -->
-        <a href="#" class="btn-download">Descargar Orden de Pago</a>
+        <h2>CAMBIAR CONTRASEÑA</h2>
+        <p>Aquí puedes modificar tu contraseña facilmente :)</p>
 
         <br><br>
 

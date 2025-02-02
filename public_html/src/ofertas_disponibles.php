@@ -100,15 +100,14 @@
 
     <div class="header">
         <h1>SERVICIO SOCIAL UDG</h1>
-        <a href="../index.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="container">
-        <h2>Orden de Pago</h2>
-        <p>Aquí puedes descargar tu orden de pago para el servicio social.</p>
+        <h2>OFERTAS DISPONIBLES</h2>
+        <p>Aquí puedes ver las ofertas disponibles que hay dependiendo tu carrera y tu centro universitario :)</p>
 
         <!-- Botón simulado para descargar -->
-        <a href="#" class="btn-download">Descargar Orden de Pago</a>
+        <a href="#" class="btn-download">Eligue tu centro universitario:</a>
 
         <br><br>
 

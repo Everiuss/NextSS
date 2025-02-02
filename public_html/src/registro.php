@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="header">
         <h1>Registro</h1>
-        <a href="index.php" class="logout-button">Salir al inicio</a>
+        <a href="cart.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="main-content">

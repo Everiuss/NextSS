@@ -1,39 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header('Location: login.php');
-    exit;
-}
-
-// Conexión a la base de datos
-$servidor = "localhost";
-$usuario = "root";
-$password = "";
-$base_datos = "servicio_social";
-
-$conn = new mysqli($servidor, $usuario, $password, $base_datos);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Error en la conexión: " . $conn->connect_error);
-}
-
-// Obtener datos del usuario logueado
-$usuario_actual = $_SESSION['usuario'];
-$sql = "SELECT nombre, correo, usuario, fecha_registro FROM usuarios WHERE usuario = '$usuario_actual'";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-    $usuario_datos = $resultado->fetch_assoc();
-} else {
-    echo "<script>alert('No se encontraron datos del usuario.'); window.location.href='index.php';</script>";
-    exit;
-}
-
-// Cerrar la conexión
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -149,7 +113,7 @@ $conn->close();
 
     <div class="header">
         <h1>Perfil del Usuario</h1>
-        <a href="../index.php" class="logout-button">Salir al inicio</a>
+        <a href="cart.php" class="logout-button">Salir al inicio</a>
     </div>
 
     <div class="main-content">
@@ -160,31 +124,13 @@ $conn->close();
             <p><strong>Usuario:</strong> <?php echo htmlspecialchars($usuario_datos['usuario']); ?></p>
             <p><strong>Fecha de Registro:</strong> <?php echo htmlspecialchars($usuario_datos['fecha_registro']); ?></p>
         </div>
+    </div>
 
-        <div class="options-container">
-            <div class="option">
-                <a href="datos_personales.php">Datos personales</a>
-            </div>
-            <div class="option">
-                <a href="#">Registro</a>
-            </div>
-            <div class="option">
-                <a href="#">Orden de pago</a>
-            </div>
-            <div class="option">
-                <a href="#">Ofertas disponibles</a>
-            </div>
-            <div class="option">
-                <a href="#">Listado de plazas</a>
-            </div>
-            <div class="option">
-                <a href="#">Acreditación</a>
-            </div>
-            <div class="option">
-                <a href="#">Cambiar contraseña</a>
-            </div>
-        </div>
+    <div class="footer-button">    
+        <!-- Botón para guardar datos -->
+        <a href="cart.php" class="logout-button">Guardar datos</a>
     </div>
 
 </body>
+
 </html>
