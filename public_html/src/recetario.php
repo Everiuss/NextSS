@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['correo']) OR $_SESSION['rol'] != "Administrador") {
-        header('Location: ../src/recetario.php');
+        header('Location: ../index.php');
     }
 ?>
 

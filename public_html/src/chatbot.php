@@ -11,19 +11,25 @@ header("Content-Type: text/plain; charset=UTF-8");
 // 
 // Modelo matemático:
 // El árbol de decisiones se representa como un grafo dirigido donde cada nodo interno representa una pregunta
-// y cada hoja representa una respuesta final. Se modela utilizando estructuras condicionales en PHP y se almacena
-// en sesiones para mantener el contexto de la conversación.
+// y cada hoja representa una respuesta final. Se modela mediante una función de transición que asigna cada entrada
+// a una siguiente pregunta o respuesta final.
 // 
-// Algoritmos empleados:
-// Se ha elegido un árbol de decisiones debido a su capacidad de estructurar respuestas predefinidas basadas en la interacción del usuario.
-// Esto permite una toma de decisiones clara y jerárquica sin necesidad de entrenamiento con datos previos, optimizando así el rendimiento
-// en un entorno de servicio social.
+// Formalmente, un árbol de decisión se define como un grafo dirigido acíclico (DAG):
+// - Un conjunto de nodos N = {n1, n2, ..., nk}, donde cada nodo representa un estado del chatbot.
+// - Un conjunto de transiciones T = {(ni, nj) | ni lleva a nj según la respuesta del usuario}.
+// - Una función de decisión D(ni, respuesta) → nj que asigna la siguiente transición en base a la respuesta.
+// 
+// Justificación de la elección del algoritmo:
+// Se eligió un árbol de decisiones en lugar de redes neuronales o aprendizaje automático debido a:
+// 1. Simplicidad y claridad: Un árbol de decisiones es interpretable, permitiendo definir preguntas y respuestas de manera estructurada.
+// 2. Bajo consumo de recursos: No requiere entrenamiento ni grandes volúmenes de datos.
+// 3. Determinismo: El chatbot siempre responde con base en reglas predefinidas, asegurando coherencia en la interacción con el usuario.
+// 4. Facilidad de implementación: Integrar un árbol de decisiones en PHP con sesiones es más eficiente para este caso de uso específico.
 
 // Pregunta inicial si no hay sesión activa
 if (!isset($_SESSION['step'])) {
     $_SESSION['step'] = 'inicio';
-    echo "👋 ¡Hola! ¿En qué puedo ayudarte con el servicio social?
-    \n1️⃣ Requisitos\n2️⃣ Registro y procesos\n3️⃣ Reportes y liberación\n4️⃣ Contacto";
+    echo "👋 ¡Hola! ¿En qué puedo ayudarte con el servicio social?\n1️⃣ Requisitos\n2️⃣ Registro y procesos\n3️⃣ Reportes y liberación\n4️⃣ Contacto";
     exit;
 }
 
