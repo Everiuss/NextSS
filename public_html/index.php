@@ -172,10 +172,10 @@
                                 <li>
                                     <a href="src/admin_register.php">Registrar administradores</a>
                                 </li>
-								 <li>
-                                    <a href="src/recetario.php">Recetario</a>
+								<li>
+                                    <a href="src/cart.php">Opciones</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="src/add_recipe.php">Agregar recetas</a>
                                 </li>
 								<li>
@@ -192,7 +192,7 @@
                                 </li>
                                 <li>
                                     <a href="src/update_ingredient.php">Actualizar ingredientes</a>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         <?php } ?>

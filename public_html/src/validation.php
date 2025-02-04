@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("db_connection.php");
+$conn = OpenCon();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Valores obtenidos desde el formulario
@@ -32,5 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-mysqli_close($conn);
+// Cerrar conexiones
+$stmt->close();
+$stmt_check->close();
+CloseCon($conn);
 ?>
