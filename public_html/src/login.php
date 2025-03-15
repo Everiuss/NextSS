@@ -53,7 +53,7 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form" method="post" action="validation.php">
+				<form class="login100-form validate-form" method="post" action="validation.php" novalidate>
 					<div class="wrap-input100 validate-input m-b-26" data-validate="El Código es Obligatorio">
 						<span class="label-input100">Código:</span>
 						<input class="input100" type="email" name="correo" placeholder="Ingresa tu código" required>

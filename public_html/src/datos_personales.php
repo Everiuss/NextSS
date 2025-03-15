@@ -1,3 +1,29 @@
+<?php
+session_start();
+include("db_connection.php"); // Asegurar que OpenCon() y CloseCon() están definidos
+
+// Verificar sesión
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$IdUsuario = $_SESSION['id_usuario'];
+$conn = OpenCon();
+
+// Obtener datos del alumno
+$sql = "SELECT * FROM alumno WHERE IdUsuario = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $IdUsuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$alumno = $result->fetch_assoc() ?: []; // Si no hay datos, $alumno será un array vacío
+
+$stmt->close();
+CloseCon($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Datos</title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/main.css"> <!-- Tu archivo de estilos -->
     <style>
         body {
             background: linear-gradient(45deg, #a2c2e7, #86b3d1);
@@ -24,135 +51,122 @@
             text-align: center;
             position: relative;
         }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        .btn-primary:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
-        }
-        .form-table {
-            width: 100%;
-            border-spacing: 15px;
-        }
-        .form-table td {
-            vertical-align: top;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        /* Nuevo estilo para el botón "Volver al Perfil" */
         .logout-button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 15px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
         }
         .logout-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>Registro de Datos - Servicio Social</h1>
         <a href="cart.php" class="logout-button">Volver al Perfil</a>
     </div>
+
     <div class="container">
         <form method="POST" action="registro_datos.php">
-            <table class="form-table">
-                <tr>
-                    <td>
-                        <h4>Datos del Alumno</h4>
-                        <div class="form-group">
-                            <label for="codigo">Código:</label>
-                            <input type="text" class="form-control" id="codigo" name="codigo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre_alumno">Nombre completo:</label>
-                            <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="curp">CURP:</label>
-                            <input type="text" class="form-control" id="curp" name="curp" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="domicilio">Domicilio:</label>
-                            <input type="text" class="form-control" id="domicilio" name="domicilio" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                            <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <label for="colonia">Colonia:</label>
-                            <input type="text" class="form-control" id="colonia" name="colonia" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="codigo_postal">Código Postal:</label>
-                            <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pais">País:</label>
-                            <input type="text" class="form-control" id="pais" name="pais" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="estado">Estado:</label>
-                            <input type="text" class="form-control" id="estado" name="estado" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="ciudad">Ciudad:</label>
-                            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <label for="email">E-mail:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" required>
-                        </div>
-                        <h4>Datos del Trabajo</h4>
-                        <div class="form-group">
-                            <label for="trabaja">¿Trabaja?</label>
-                            <select class="form-control" id="trabaja" name="trabaja" required>
-                                <option value="si">Sí</option>
-                                <option value="no">No</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="empresa">Empresa:</label>
-                            <input type="text" class="form-control" id="empresa" name="empresa">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Registrar Datos</button>
-                    </td>
-                </tr>
-            </table>
+            <h4 class="mb-3">Datos del Alumno</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="codigo">Código:</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo"
+                               value="<?= $alumno['codigoAlumno'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_alumno">Nombre completo:</label>
+                        <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
+                               value="<?= $alumno['nombreAlumno'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="curp">CURP:</label>
+                        <input type="text" class="form-control" id="curp" name="curp"
+                               value="<?= $alumno['curp'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="domicilio">Domicilio:</label>
+                        <input type="text" class="form-control" id="domicilio" name="domicilio"
+                               value="<?= $alumno['domicilio'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
+                               value="<?= $alumno['fechaNac'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="colonia">Colonia:</label>
+                        <input type="text" class="form-control" id="colonia" name="colonia"
+                               value="<?= $alumno['colonia'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo_postal">Código Postal:</label>
+                        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal"
+                               value="<?= $alumno['codigoPostal'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">País:</label>
+                        <input type="text" class="form-control" id="pais" name="pais"
+                               value="<?= $alumno['pais'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="estado">Estado:</label>
+                        <input type="text" class="form-control" id="estado" name="estado"
+                               value="<?= $alumno['estado'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad:</label>
+                        <input type="text" class="form-control" id="ciudad" name="ciudad"
+                               value="<?= $alumno['ciudad'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h4 class="mt-3">Contacto</h4>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="<?= $alumno['correoAlumno'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono"
+                               value="<?= $alumno['telefono'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <h4 class="mt-3">Datos del Trabajo</h4>
+                    <div class="form-group">
+                        <label for="trabaja">¿Trabaja?</label>
+                        <select class="form-control" id="trabaja" name="trabaja" required <?= !empty($alumno) ? 'disabled' : '' ?>>
+                            <option value="1" <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 1 ? 'selected' : '' ?>>Sí</option>
+                            <option value="0" <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'selected' : '' ?>>No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Empresa:</label>
+                        <input type="text" class="form-control" id="empresa" name="empresa"
+                               value="<?= $alumno['empresa'] ?? '' ?>" <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
+                </div>
+            </div>
+
+            <?php if (empty($alumno)): ?>
+                <button type="submit" class="btn btn-primary">Registrar Datos</button>
+            <?php endif; ?>
         </form>
     </div>
 </body>

@@ -107,19 +107,19 @@
                 <a href="/public_html/src/registro.php">Registro</a>
             </div>
             <div class="option">
-                <a href="orden_pago.php">Orden de pago</a>
+                <a href="/public_html/src/orden_pago.php">Orden de pago</a>
             </div>
             <div class="option">
-                <a href="Ofertas_disponibles.php">Ofertas disponibles</a>
+                <a href="/public_html/src/ofertas_disponibles.php">Ofertas disponibles</a>
             </div>
             <div class="option">
-                <a href="listado_plazas.php">Listado de plazas</a>
+                <a href="/public_html/src/listado_plazas.php">Listado de plazas</a>
             </div>
             <div class="option">
-                <a href="acreditacion.php">Acreditación</a>
+                <a href="/public_html/src/acreditacion.php">Acreditación</a>
             </div>
             <div class="option">
-                <a href="Cambiar_contrasena.php">Cambiar contraseña</a>
+                <a href="/public_html/src/cambiar_contrasena.php">Cambiar contraseña</a>
             </div>
         </div>
     </div>
@@ -133,7 +133,7 @@
 
 
  <!-------------------------------------------------- AQUI COMIENZA EL CHATBOT ------------------------------->            
-<head>
+ <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot Flotante</title>
@@ -202,13 +202,12 @@
     </style>
 </head>
 <body>
-
     <!-- Botón flotante -->
     <button id="chatbot-btn">💬</button>
 
     <!-- Chatbox -->
     <div id="chatbox">
-        <div id="chat-header">Chatbot</div>
+        <div id="chat-header">SERVIBOT</div>
         <div id="chat-body"></div>
         <div id="chat-footer">
             <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
@@ -216,11 +215,20 @@
         </div>
     </div>
 
-
-    <script>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+<script>
     document.getElementById("chatbot-btn").addEventListener("click", function() {
         let chatbox = document.getElementById("chatbox");
         chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
+    });
+
+    const socket = io("ws://localhost:5000"); // Conectar al servidor WebSocket en Python
+
+    // ✅ Escuchar respuestas solo una vez al inicio
+    socket.on("respuesta", function(data) {
+        let chatBody = document.getElementById("chat-body");
+        chatBody.innerHTML += `<div style="text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;">Bot: ${data.respuesta}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
     });
 
     function sendMessage() {
@@ -231,17 +239,7 @@
         let chatBody = document.getElementById("chat-body");
         chatBody.innerHTML += `<div style="text-align:right; background:#007bff; color:white; padding:5px; border-radius:10px; margin:5px 0;">Tú: ${message}</div>`;
 
-        fetch("chatbot.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `message=${encodeURIComponent(message)}`
-        })
-        .then(response => response.text())
-        .then(data => {
-            chatBody.innerHTML += `<div style="text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;">Bot: ${data}</div>`;
-            chatBody.scrollTop = chatBody.scrollHeight;
-        });
-
+        socket.emit("mensaje", { mensaje: message }); // ✅ Enviar mensaje al WebSocket
         input.value = "";
     }
 
@@ -254,6 +252,7 @@
         }
     });
 </script>
+</body>
 
 </body>
 </html>		
