@@ -101,25 +101,25 @@
     <div class="main-content">
         <div class="options-container">
             <div class="option">
-                <a href="/public_html/src/datos_personales.php">Datos Personales </a>
+                <a href="/src/datos_personales.php">Datos Personales </a>
             </div>
             <div class="option">
-                <a href="/public_html/src/registro.php">Registro</a>
+                <a href="/src/registro.php">Registro</a>
             </div>
             <div class="option">
-                <a href="/public_html/src/orden_pago.php">Orden de pago</a>
+                <a href="/src/orden_pago.php">Orden de pago</a>
             </div>
             <div class="option">
-                <a href="/public_html/src/ofertas_disponibles.php">Ofertas disponibles</a>
+                <a href="/src/ofertas_disponibles.php">Ofertas disponibles</a>
             </div>
             <div class="option">
-                <a href="/public_html/src/listado_plazas.php">Listado de plazas</a>
+                <a href="/src/listado_plazas.php">Listado de plazas</a>
             </div>
             <div class="option">
-                <a href="/public_html/src/acreditacion.php">Acreditación</a>
+                <a href="/src/acreditacion.php">Acreditación</a>
             </div>
             <div class="option">
-                <a href="/public_html/src/cambiar_contrasena.php">Cambiar contraseña</a>
+                <a href="/src/cambiar_contrasena.php">Cambiar contraseña</a>
             </div>
         </div>
     </div>

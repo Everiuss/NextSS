@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orden de Pago</title>
+    <title>Ofertas Disponibles</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -94,6 +94,18 @@
         .btn-download:hover, .btn-back:hover {
             background-color: #0056b3;
         }
+        .btn-back {
+            display: inline-block;
+            background-color: red; /* Cambiar a rojo */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-back:hover {
+            background-color: darkred; /* Cambiar a un tono más oscuro de rojo al pasar el mouse */
+        }
     </style>
 </head>
 <body>
@@ -104,11 +116,19 @@
 
     <div class="container">
         <h2>OFERTAS DISPONIBLES</h2>
-        <p>Aquí puedes ver las ofertas disponibles que hay dependiendo tu carrera y tu centro universitario :)</p>
+        <p>Aquí puedes ver las ofertas en donde puedes realizar tu servicio social dependiendo tu carrera.</p>
+        <p>Elige tu carrera:</p>
 
-        <!-- Botón simulado para descargar -->
-        <a href="#" class="btn-download">Eligue tu centro universitario:</a>
-
+        <!-- Cambia el href a la página correspondiente -->
+        <a href="ing_informatica.php" class="btn-download">Ingeniería Informática</a>
+        <br><br>
+        <a href="ing_biomedica.php" class="btn-download">Ingeniería Biomédica</a>
+        <br><br>
+        <a href="ing_computacion.php" class="btn-download">Ingeniería en Computación</a>
+        <br><br>
+        <a href="ing_electronica.php" class="btn-download">Ingeniería Electrónica</a>
+        <br><br>
+        <a href="ing_robotica.php" class="btn-download">Ingeniería Robótica</a>
         <br><br>
 
         <!-- Botón para regresar -->

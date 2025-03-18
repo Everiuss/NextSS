@@ -81,7 +81,7 @@
             font-size: 16px;
         }
 
-        .btn-download, .btn-back {
+        .btn-download {
             display: inline-block;
             background-color: #007bff;
             color: white;
@@ -91,8 +91,22 @@
             transition: background-color 0.3s;
         }
 
-        .btn-download:hover, .btn-back:hover {
+        .btn-download:hover {
             background-color: #0056b3;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background-color: red; /* Cambiar a rojo */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: darkred; /* Cambiar a un tono más oscuro de rojo al pasar el mouse */
         }
     </style>
 </head>
@@ -107,14 +121,21 @@
         <h2>Orden de Pago</h2>
         <p>Aquí puedes descargar tu orden de pago para el servicio social.</p>
 
-        <!-- Botón simulado para descargar -->
-        <a href="#" class="btn-download">Descargar Orden de Pago</a>
+        <!-- Botón para descargar el PDF -->
+        <a href="ORDEN DE PAGO.pdf" class="btn-download" download>Pagar inscripción</a>
+
+        <br><br>
+
+        <!-- Botón para descargar el PDF -->
+        <a href="REASIGNACION.pdf" class="btn-download" download>Pagar reasignación</a>
+
+        <br><br>
+
+        <!-- Botón para descargar el PDF -->
+        <a href="ACREDITACION.pdf" class="btn-download" download>Pagar acreditación</a>
 
         <br><br>
 
         <!-- Botón para regresar -->
         <a href="cart.php" class="btn-back">Volver al menú</a>
-    </div>
-
-</body>
-</html>
+    </div
