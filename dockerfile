@@ -13,4 +13,5 @@ RUN chown -R www-data:www-data /var/www/html
 # Exponer el puerto 80 para el servidor web
 EXPOSE 80
 
-# No es necesario un comando de inicio, Apache se encargará de todo
+# Comando para iniciar Apache
+CMD ["apache2-foreground"]
