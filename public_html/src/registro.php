@@ -4,17 +4,17 @@ include("db_connection.php"); // Asegúrate de que este archivo contiene OpenCon
 
 // Verificar si hay una sesión iniciada
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: login.php"); // Redirige al login si no hay sesión
+    header("Location: login.php");
     exit();
 }
 
-$IdUsuario = $_SESSION['id_usuario']; // Obtener el ID del usuario desde la sesión
+$IdUsuario = $_SESSION['id_usuario'];
 $conn = OpenCon();
 
 // Consulta SQL para obtener los datos del alumno y su registro
 $sql = "SELECT r.Centro, r.Carrera, r.CreditosRequeridos, r.Sede, r.codigoAlumno, 
                r.Alumno, r.CicloAdmision, r.UltimoCicloCursado, r.Estatus, 
-               r.Promedio, r.Creditos, r.Porcentaje 
+               r.Promedio, r.Creditos, r.Porcentaje, r.Registro 
         FROM registro r
         INNER JOIN alumno a ON r.codigoAlumno = a.codigoAlumno
         WHERE a.IdUsuario = ?";
@@ -24,7 +24,6 @@ $stmt->bind_param("i", $IdUsuario);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Verificar si hay datos
 if ($row = $result->fetch_assoc()) {
     $centro = $row['Centro'];
     $carrera = $row['Carrera'];
@@ -38,10 +37,11 @@ if ($row = $result->fetch_assoc()) {
     $promedio = $row['Promedio'];
     $creditos = $row['Creditos'];
     $porcentaje = $row['Porcentaje'];
+    $registro = $row['Registro']; // Nuevo campo
 } else {
     $centro = $carrera = $creditosRequeridos = $sede = $codigoAlumno = 
     $alumno = $cicloAdmision = $ultimoCiclo = $estatus = $promedio = 
-    $creditos = $porcentaje = "No disponible";
+    $creditos = $porcentaje = $registro = "0";
 }
 
 $stmt->close();
@@ -55,6 +55,13 @@ CloseCon($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicio Social</title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <script>
+        function confirmarCancelacion() {
+            if (confirm("¿Estás seguro de cancelar tu registro?")) {
+                document.getElementById("cancelarForm").submit();
+            }
+        }
+    </script>
     <style>
         body {
             background: linear-gradient(45deg, #a2c2e7, #86b3d1);
@@ -90,6 +97,19 @@ CloseCon($conn);
         .logout-button:hover {
             background-color: #0056b3;
         }
+        .action-button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+        }
+        .cancel-button { background-color: #dc3545; }
+        .register-button { background-color: #28a745; }
     </style>
 </head>
 <body>
@@ -113,8 +133,44 @@ CloseCon($conn);
             <tr><td>Porcentaje: <?php echo htmlspecialchars($porcentaje); ?>%</td></tr>
         </table>
         <p style="text-align: center; font-weight: bold;">
-            <?php echo ($estatus == "Activo") ? "Tienes una plaza inscrita o activa" : "No tienes una plaza activa"; ?>
+            <?php 
+            if (intval($registro) === 1) {
+                echo "Ya estás registrado en el servicio social.";
+            } else {
+                echo "No tienes un registro activo en el servicio social.";
+            }
+            ?>
         </p>
+
+        <!-- Mostrar los botones según el valor de Registro -->
+        <?php if ($porcentaje >= $creditosRequeridos) { ?>
+            <?php if (intval($registro) === 1) { ?>
+                <form method="POST" action="actualizar_registro.php" onsubmit="return confirm('¿Estás seguro de cancelar tu registro?');">
+                    <input type="hidden" name="accion" value="cancelar">
+                    <button type="submit" class="action-button cancel-button">Cancelar Registro</button>
+                </form>
+            <?php } else { ?>
+                <form method="POST" action="actualizar_registro.php">
+                    <input type="hidden" name="accion" value="registrar">
+                    <button type="submit" class="action-button register-button">Registrar</button>
+                </form>
+            <?php } ?>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+            echo "<div class='alert alert-success'>" . $_SESSION['mensaje'] . "</div>";
+            unset($_SESSION['mensaje']);
+        }
+        if (isset($_SESSION['error'])) {
+            echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
+            unset($_SESSION['error']);
+        }
+        ?>
+
+
+
+        
     </div>
 </body>
 </html>

@@ -101,26 +101,26 @@
     <div class="main-content">
         <div class="options-container">
             <div class="option">
-                <a href="/src/datos_personales.php">Datos Personales </a>
+                <a href="/public_html/src/datos_personales.php">Datos Personales </a>
             </div>
             <div class="option">
-                <a href="/src/registro.php">Registro</a>
+                <a href="/public_html/src/registro.php">Registro</a>
             </div>
             <div class="option">
-                <a href="/src/orden_pago.php">Orden de pago</a>
+                <a href="/public_html/src/orden_pago.php">Orden de pago</a>
             </div>
             <div class="option">
-                <a href="/src/ofertas_disponibles.php">Ofertas disponibles</a>
+                <a href="/public_html/src/ofertas_disponibles.php">Ofertas disponibles</a>
             </div>
             <div class="option">
-                <a href="/src/listado_plazas.php">Listado de plazas</a>
+                <a href="/public_html/src/listado_plazas.php">Listado de plazas</a>
             </div>
             <div class="option">
-                <a href="/src/acreditacion.php">Acreditación</a>
+                <a href="/public_html/src/acreditacion.php">Acreditación</a>
             </div>
-            <div class="option">
-                <a href="/src/cambiar_contrasena.php">Cambiar contraseña</a>
-            </div>
+            <!--<div class="option">
+                <a href="/public_html/src/cambiar_contrasena.php">Cambiar contraseña</a>
+            </div>-->
         </div>
     </div>
 
@@ -222,7 +222,7 @@
         chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
     });
 
-    const socket = io("ws://localhost:5000"); // Conectar al servidor WebSocket en Python
+    const socket = io("wss://chatbot-ws-ofa9.onrender.com"); // Conectar al servidor WebSocket en Python
 
     // ✅ Escuchar respuestas solo una vez al inicio
     socket.on("respuesta", function(data) {
