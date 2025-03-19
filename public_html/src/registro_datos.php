@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
     $trabaja = $_POST['trabaja'];
-    $empresa = !empty($_POST['empresa']) ? $_POST['empresa'] : NULL;
+    $empresa = (!empty($_POST['empresa']) && $_POST['trabaja'] == "si") ? $_POST['empresa'] : 'NA';
     $trabajaBool = ($trabaja == "si") ? 1 : 0;
 
     // Verificar si el alumno ya existe

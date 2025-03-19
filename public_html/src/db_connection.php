@@ -1,6 +1,6 @@
 <?php
 function OpenCon() {
-    $conn = new mysqli('localhost', 'root', '', 'clatyhouse_db');
+    $conn = new mysqli('localhost', 'root', '', 'nextss_db');
 
     // Verificar la conexión
     if ($conn->connect_error) {

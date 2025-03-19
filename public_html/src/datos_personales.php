@@ -187,7 +187,8 @@ CloseCon($conn);
                     <div class="form-group">
                         <label for="empresa">Empresa:</label>
                         <input type="text" class="form-control" id="empresa" name="empresa"
-                               value="<?= $alumno['empresa'] ?? '' ?>" <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'readonly' : '' ?>>
+                        value="<?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? '' : ($alumno['empresa'] ?? '') ?>"
+                        <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
