@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: nextss
+    env: docker
+    dockerfilePath: ./Dockerfile
+    buildCommand: echo "No se requiere build con Node.js"
+    startCommand: ""
+    autoDeploy: true
+    branch: main
+    region: oregon
