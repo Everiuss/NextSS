@@ -122,17 +122,10 @@
         <p>Aquí puedes descargar tu orden de pago para el servicio social.</p>
 
         <!-- Botón para descargar el PDF -->
-        <a href="ORDEN DE PAGO.pdf" class="btn-download" download>Pagar inscripción</a>
+        <a href="generar_pdf.php" class="btn-download">Generar y Descargar Orden de Pago</a>
 
         <br><br>
 
-        <!-- Botón para descargar el PDF -->
-        <a href="REASIGNACION.pdf" class="btn-download" download>Pagar reasignación</a>
-
-        <br><br>
-
-        <!-- Botón para descargar el PDF -->
-        <a href="ACREDITACION.pdf" class="btn-download" download>Pagar acreditación</a>
 
         <br><br>
 
