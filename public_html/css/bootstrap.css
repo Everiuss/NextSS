@@ -2841,7 +2841,7 @@ tbody.collapse.show {
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #ffffff00;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
@@ -2945,7 +2945,7 @@ tbody.collapse.show {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  color: #212529;
+  color: #ffffff;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
@@ -3839,6 +3839,62 @@ tbody.collapse.show {
 .navbar-expand .navbar-nav {
   flex-direction: row;
 }
+
+.custom-navbar {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .navbar-nav .nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+}
+
+.dropdown-menu-dark {
+  background-color: rgba(0, 0, 0, 0.5) !important; /* Fondo negro semi-transparente */
+  border: none; /* Quitar bordes */
+  backdrop-filter: blur(8px); /* Efecto difuminado */
+}
+
+/* Asegurar que los textos sean visibles */
+.dropdown-menu-dark .dropdown-item {
+  color: white !important;
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+  background-color: rgba(248, 180, 0, 0.5) !important; /* Amarillo con transparencia */
+  color: black !important;
+}
+
+
+.custom-navbar .navbar-nav {
+  margin-left: auto; /* Empuja el menú a la derecha */
+}
+
+.custom-navbar .navbar-nav .nav-link:hover {
+  color: #f8b400 !important;
+}
+
+.dropdown-menu-dark {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.dropdown-menu-dark .dropdown-item {
+  color: white !important;
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+  background-color: #f8b400 !important;
+  color: black !important;
+}
+
+/* Navbar con fondo sólido al hacer scroll */
+.custom-navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
 
 .navbar-expand .navbar-nav .dropdown-menu {
   position: absolute;
@@ -6410,6 +6466,17 @@ button.bg-dark:focus {
 .float-right {
   float: right !important;
 }
+
+#logo {
+  text-align: left;
+}
+
+.logo-img {
+  width: 100%;        /* Hace que el logo ocupe todo el ancho del contenedor */
+  max-width: 200px;   /* Limita el ancho máximo para que no se agrande demasiado */
+  height: auto;       /* Mantiene la proporción de la imagen */
+}
+
 
 .float-none {
   float: none !important;

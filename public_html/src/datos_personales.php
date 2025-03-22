@@ -43,40 +43,57 @@ CloseCon($conn);
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        /* Estilos generales */
         .header {
-            background-color: #343a40;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004080; /* Azul UDG */
             color: white;
-            padding: 15px;
-            text-align: center;
-            position: relative;
+            padding: 15px 20px;
+            font-family: Arial, sans-serif;
         }
-        .action-button {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            background-color: rgb(42, 40, 167);
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
+
+        /* Estilos del título */
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        /* Estilos del botón */
+        .logout-button {
+            background-color:rgb(52, 170, 185);
+            color: white;
+            padding: 10px 15px;
             text-decoration: none;
-            color: white;
-            border: none;
-            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
         }
+
+        /* 📱 Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column; /* Elementos en columna */
+                text-align: center;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .logout-button {
+                width: 100%;
+                text-align: center;
+                padding: 12px 0;
+            }
+        }
+
         .action-button:hover {
             background-color: rgb(35, 30, 150);
         }
-        .logout-button {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
+       
+        
         .logout-button:hover {
             background-color: #0056b3;
         }
@@ -184,6 +201,7 @@ CloseCon($conn);
                             <?php endif; ?>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label for="empresa">Empresa:</label>
                         <input type="text" class="form-control" id="empresa" name="empresa"

@@ -527,7 +527,7 @@ td, th {
 }
 
 .pb-100 {
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 }
 
 .pb-120 {
@@ -1902,6 +1902,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 20px;
 }
 
+.header h1 {
+  color: #fff;
+}
+
 .header-top ul li a {
   color: #fff;
 }
@@ -1934,7 +1938,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header #logo img {
-  padding: 0;
+  padding-right: 30px;
   margin: 0;
 }
 
@@ -2302,7 +2306,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-content {
-  margin-top: -250px;
+  margin-top: -150px;
 }
 
 .banner-content h1 {
@@ -2364,8 +2368,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 @media (max-width: 768px) {
   .video-sec-area {
-    background-color: #19328a;
-    padding-top: 0px;
+    background-color: #ffffff;
+    padding-top: 25px;
   }
 }
 
@@ -2455,7 +2459,16 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
+.gallery-area {
+  background-color: #020b12;
+  color: #fff;
+}
+
 .review-area h1, .review-area h4 {
+  color: #fff;
+}
+
+.gallery-area h1, .gallery-area h4 {
   color: #fff;
 }
 
@@ -2528,7 +2541,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .footer-area {
   color: #fff;
-  padding-top: 220px;
+  padding-top: 90px;
   background: url(../img/footer-bg.jpg) center;
   background-size: cover;
 }
