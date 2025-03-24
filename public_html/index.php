@@ -340,7 +340,7 @@
 								<h1 class="mb-10">Conoce las dependencias disponibles</h1>
                                 <?php
                                 if (isset($_SESSION['correo'])) { ?>
-								    <p> Dando lo mejor para ti: &nbsp; <?php echo $_SESSION['nombre'];?>  </p>
+								    <p>&nbsp; <?php echo $_SESSION['nombre'];?>  </p>
                                 <?php
                                 }
                                 else { ?>

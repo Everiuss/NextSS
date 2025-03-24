@@ -29,19 +29,26 @@ CloseCon($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Datos</title>
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/main.css">
+
     <style>
+        html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        }
         body {
             background: linear-gradient(45deg, #a2c2e7, #86b3d1);
             font-family: Arial, sans-serif;
         }
         .container {
-            margin-top: 30px;
+            margin: 30px auto;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 95%;
         }
         /* Estilos generales */
         .header {
@@ -52,6 +59,8 @@ CloseCon($conn);
             color: white;
             padding: 15px 20px;
             font-family: Arial, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* Estilos del título */
@@ -103,92 +112,82 @@ CloseCon($conn);
 <body>
     <div class="header">
         <h1>Registro de Datos - Servicio Social</h1>
-        <a href="cart.php" class="logout-button">Volver al Perfil</a>
+        <a href="cart.php" class="logout-button">Salir al menú</a>
     </div>
 
     <div class="container">
         <form method="POST" action="registro_datos.php">
-            <h4 class="mb-3">Datos del Alumno</h4>
             <div class="row">
                 <div class="col-md-6">
+                    <h4 class="mb-3">Datos del Alumno</h4>
                     <div class="form-group">
                         <label for="codigo">Código:</label>
                         <input type="text" class="form-control" id="codigo" name="codigo"
-                               value="<?= $alumno['codigoAlumno'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['codigoAlumno'] ?? '' ?>" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="nombre_alumno">Nombre completo:</label>
                         <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                               value="<?= $alumno['nombreAlumno'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['nombreAlumno'] ?? '' ?>" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="curp">CURP:</label>
                         <input type="text" class="form-control" id="curp" name="curp"
-                               value="<?= $alumno['curp'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['curp'] ?? '' ?>" required readonly>
                     </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="form-group">
                         <label for="domicilio">Domicilio:</label>
                         <input type="text" class="form-control" id="domicilio" name="domicilio"
-                               value="<?= $alumno['domicilio'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['domicilio'] ?? '' ?>" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                         <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
-                               value="<?= $alumno['fechaNac'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['fechaNac'] ?? '' ?>" required readonly>
                     </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="form-group">
                         <label for="colonia">Colonia:</label>
                         <input type="text" class="form-control" id="colonia" name="colonia"
-                               value="<?= $alumno['colonia'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['colonia'] ?? '' ?>" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="codigo_postal">Código Postal:</label>
                         <input type="text" class="form-control" id="codigo_postal" name="codigo_postal"
-                               value="<?= $alumno['codigoPostal'] ?? '' ?>" required readonly>
+                            value="<?= $alumno['codigoPostal'] ?? '' ?>" required readonly>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
+                    <div class="form-group">
                         <label for="pais">País:</label>
                         <input type="text" class="form-control" id="pais" name="pais"
-                               value="<?= $alumno['pais'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                            value="<?= $alumno['pais'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
                     </div>
                     <div class="form-group">
                         <label for="estado">Estado:</label>
                         <input type="text" class="form-control" id="estado" name="estado"
-                               value="<?= $alumno['estado'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                            value="<?= $alumno['estado'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
                     </div>
                     <div class="form-group">
                         <label for="ciudad">Ciudad:</label>
                         <input type="text" class="form-control" id="ciudad" name="ciudad"
-                               value="<?= $alumno['ciudad'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                            value="<?= $alumno['ciudad'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
                     </div>
+                </div>
 
-                <div class="col-md-12">
+                <!-- Datos de Contacto -->
+                <div class="col-md-6">
                     <h4 class="mt-3">Contacto</h4>
                     <div class="form-group">
                         <label for="email">E-mail:</label>
                         <input type="email" class="form-control" id="email" name="email"
-                               value="<?= $alumno['correoAlumno'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
-                </div>
-
-                <div class="col-md-6">
+                            value="<?= $alumno['correoAlumno'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                    </div>
                     <div class="form-group">
                         <label for="telefono">Teléfono:</label>
                         <input type="text" class="form-control" id="telefono" name="telefono"
-                               value="<?= $alumno['telefono'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
+                            value="<?= $alumno['telefono'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
                     </div>
-                </div>
 
                 <!-- Datos del trabajo -->
-                <div class="col-md-12">
-                    <h4 class="mt-3">Datos del Trabajo</h4>
+                <h4 class="mt-3">Datos del Trabajo</h4>
                     <div class="form-group">
                         <label for="trabaja">¿Trabaja?</label>
                         <select class="form-control" id="trabaja" name="trabaja" required <?= !empty($alumno) ? 'disabled' : '' ?>>
@@ -201,12 +200,11 @@ CloseCon($conn);
                             <?php endif; ?>
                         </select>
                     </div>
-                    
                     <div class="form-group">
                         <label for="empresa">Empresa:</label>
                         <input type="text" class="form-control" id="empresa" name="empresa"
-                        value="<?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? '' : ($alumno['empresa'] ?? '') ?>"
-                        <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'readonly' : '' ?>>
+                            value="<?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? '' : ($alumno['empresa'] ?? '') ?>"
+                            <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>

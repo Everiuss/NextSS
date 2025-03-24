@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orden de Pago</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/main.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,32 +33,53 @@
             }
         }
 
+        /* Estilos generales */
         .header {
-            background-color: rgba(52, 58, 64, 0.8);
-            color: white;
-            padding: 15px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            position: relative;
+            background-color: #004080; /* Azul UDG */
+            color: white;
+            padding: 15px 20px;
+            font-family: Arial, sans-serif;
         }
 
+        /* Estilos del título */
         .header h1 {
             margin: 0;
+            font-size: 1.8rem;
         }
 
+        /* Estilos del botón */
         .logout-button {
-            background-color: #007bff;
+            background-color:rgb(52, 170, 185);
             color: white;
             padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             text-decoration: none;
-            font-size: 14px;
-            position: absolute;
-            right: 20px;
+            border-radius: 5px;
+            font-size: 1rem;
         }
+
+        /* 📱 Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column; /* Elementos en columna */
+                text-align: center;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .logout-button {
+                width: 100%;
+                text-align: center;
+                padding: 12px 0;
+            }
+        }
+
+
 
         .logout-button:hover {
             background-color: #0056b3;
@@ -89,6 +112,7 @@
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
+            margin-top: 20px;
         }
 
         .btn-download:hover {
@@ -114,7 +138,7 @@
 
     <div class="header">
         <h1>SERVICIO SOCIAL UDG</h1>
-        <a href="../index.php" class="logout-button">Salir al inicio</a>
+        <a href="cart.php" class="logout-button">Salir al menú</a>
     </div>
 
     <div class="container">
@@ -129,6 +153,6 @@
 
         <br><br>
 
-        <!-- Botón para regresar -->
-        <a href="cart.php" class="btn-back">Volver al menú</a>
+        <!-- Botón para regresar 
+        <a href="cart.php" class="btn-back">Volver al menú</a>-->
     </div

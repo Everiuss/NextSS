@@ -54,7 +54,8 @@ CloseCon($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicio Social</title>
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/main.css">
     <script>
         function confirmarCancelacion() {
             if (confirm("¿Estás seguro de cancelar tu registro?")) {
@@ -142,8 +143,9 @@ CloseCon($conn);
 <body>
     <div class="header">
         <h1>Sistema de Administración de Servicio Social</h1>
-        <a href="cart.php" class="logout-button">Volver al Perfil</a>
+        <a href="cart.php" class="logout-button">Salir al menú</a>
     </div>
+    
     <div class="container">
         <h3>Ciclo de registro al servicio: <strong><?php echo htmlspecialchars($cicloAdmision); ?></strong></h3>
         <table class="table">
