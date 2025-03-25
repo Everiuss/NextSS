@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = mysqli_real_escape_string($conn, md5($_POST['contrasena']));
     
     // Consulta para verificar credenciales
-    $result = mysqli_query($conn, "SELECT * FROM USUARIOS WHERE Correo = '$correo' AND Contrasena = '$contrasena'");
+    $result = mysqli_query($conn, "SELECT * FROM usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'");
 
     if (mysqli_num_rows($result) > 0) {
         $ur = $result->fetch_array();

@@ -338,14 +338,6 @@
 						<div class="menu-content pb-60 col-lg-10">
 							<div class="title text-center">
 								<h1 class="mb-10">Conoce las dependencias disponibles</h1>
-                                <?php
-                                if (isset($_SESSION['correo'])) { ?>
-								    <p>&nbsp; <?php echo $_SESSION['nombre'];?>  </p>
-                                <?php
-                                }
-                                else { ?>
-                                    <p> Dando lo mejor para ti.</p>
-                                <?php } ?>
 							</div>
 						</div>
 					</div>

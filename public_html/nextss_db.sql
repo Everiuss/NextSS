@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-03-2025 a las 20:13:48
+-- Tiempo de generación: 25-03-2025 a las 04:15:57
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -55,7 +55,34 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 INSERT INTO `alumno` (`codigoAlumno`, `nombreAlumno`, `curp`, `domicilio`, `fechaNac`, `colonia`, `codigoPostal`, `pais`, `estado`, `ciudad`, `correoAlumno`, `telefono`, `trabajoBool`, `empresa`, `IdUsuario`) VALUES
 (22075694, 'Julian Martinez Heredia', 'MMGHNJSJU88JJ', 'Pino suarez #532', '2002-08-21', 'El Fresno', 44210, 'Mexico', 'Jalisco', 'Guadalajara', 'mmg@gmail.com', '2147483647', 1, 'UDG', 8),
 (220771037, 'Pablo Perez', 'PAPE2257855MRZ', 'Mariano Otero #22079', '1998-12-22', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'pp@gmail.com', '2147455661', 1, 'UDG', 10),
-(220721032, 'Jose Luis Rodríguez ', 'JOLR225842MZX', 'Mariano Otero #22079', '2001-03-20', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'joserod@gmail.com', '2147455698', 1, 'Conti', 11);
+(220721032, 'Jose Luis Rodriguez ', 'JOLR225842MZX', 'Mariano Otero #22079', '2001-03-20', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'joserod@gmail.com', '2147455698', 0, '0', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plazas`
+--
+
+DROP TABLE IF EXISTS `plazas`;
+CREATE TABLE IF NOT EXISTS `plazas` (
+  `id_plaza` int NOT NULL AUTO_INCREMENT,
+  `id_alumno` int DEFAULT NULL,
+  `numero_oficio` varchar(50) NOT NULL,
+  `estatus` enum('ACTIVA','INACTIVA') NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `dependencia` varchar(255) NOT NULL,
+  `programa` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_plaza`),
+  KEY `id_alumno` (`id_alumno`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `plazas`
+--
+
+INSERT INTO `plazas` (`id_plaza`, `id_alumno`, `numero_oficio`, `estatus`, `fecha_inicio`, `fecha_fin`, `dependencia`, `programa`) VALUES
+(1, 11, '821/CUCEI/2024B', 'ACTIVA', '2024-09-02', NULL, 'COMPUTO Y TELECOMUNICACIONES PARA EL APRENDIZAJE CUCEI', 'Soporte Técnico y Mantenimiento de Equipos de Cómputo');
 
 -- --------------------------------------------------------
 
@@ -90,9 +117,40 @@ CREATE TABLE IF NOT EXISTS `registro` (
 --
 
 INSERT INTO `registro` (`idRegistro`, `Centro`, `Carrera`, `CreditosRequeridos`, `Sede`, `codigoAlumno`, `Alumno`, `CicloAdmision`, `UltimoCicloCursado`, `Estatus`, `Promedio`, `Creditos`, `Porcentaje`, `IdUsuario`, `Registro`) VALUES
-(1, 'CUCEI', 'INCO', 70.00, 'Campus Tecnológico', 22075694, 'Julian Martinez Heredia', '2020B', '2024B', 'Activo', 86.50, 320, 75.00, 8, 1),
-(2, 'CUCEA', 'ANCEM', 70.00, 'CUCEA', 220721032, 'Jose Luis Rodríguez ', '2020B', '2025A', 'Activo', 80.00, 620, 75.00, 11, 1),
-(5, 'CUCEI', 'INCO', 70.00, 'CUCEI', 220771037, 'Pablo Perez', '2021A', '2025B', 'Activo', 85.00, 552, 85.00, 10, 1);
+(1, 'CUCEI', 'INCO', 60.00, 'Campus Tecnológico', 22075694, 'Julian Martinez Heredia', '2020B', '2024B', 'Activo', 86.50, 320, 75.00, 8, 1),
+(2, 'CUCEA', 'ANCEM', 60.00, 'CUCEA', 220721032, 'Jose Luis Rodríguez ', '2020B', '2025A', 'Activo', 80.00, 620, 80.00, 11, 0),
+(5, 'CUCEI', 'INCO', 60.00, 'CUCEI', 220771037, 'Pablo Perez', '2021A', '2025B', 'Activo', 85.00, 552, 85.00, 10, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reportes`
+--
+
+DROP TABLE IF EXISTS `reportes`;
+CREATE TABLE IF NOT EXISTS `reportes` (
+  `id_reporte` int NOT NULL AUTO_INCREMENT,
+  `id_alumno` int DEFAULT NULL,
+  `id_plaza` int DEFAULT NULL,
+  `tipo` enum('BIMESTRAL','FINAL') NOT NULL,
+  `fecha_reporte` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `horas_reportadas` int NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `actividades` text NOT NULL,
+  `ajuste_programa` enum('SI','NO','EN PARTE') NOT NULL,
+  `nuevos_conocimientos` int DEFAULT NULL,
+  `experiencias_formativas` int DEFAULT NULL,
+  `experiencias_profesionales` int DEFAULT NULL,
+  `adquisicion_habilidades` int DEFAULT NULL,
+  `aportaciones` text,
+  `cumplimiento_actividades` enum('SI','NO','EN PARTE') NOT NULL,
+  `estatus` enum('EDICIÓN','APROBADO','RECHAZADO') NOT NULL DEFAULT 'EDICIÓN',
+  `ruta_reporte` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_reporte`),
+  KEY `id_alumno` (`id_alumno`),
+  KEY `id_plaza` (`id_plaza`)
+) ;
 
 -- --------------------------------------------------------
 

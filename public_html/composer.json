@@ -1,6 +1,8 @@
 {
     "require": {
         "cboden/ratchet": "^0.4.4",
-        "fpdf/fpdf": "^1.86"
+        "fpdf/fpdf": "^1.86",
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.6"
     }
 }

@@ -1,5 +1,50 @@
 <?php
-// Aquí podrías agregar validación de sesión si es necesario
+    session_start();
+
+    // Conexión a la base de datos (ajusta los valores según tu configuración)
+    $servername = "localhost";  // Ajusta según tu servidor
+    $username = "root";         // Ajusta según tu base de datos
+    $password = "";             // Ajusta según tu base de datos
+    $dbname = "nextss_db";      // Nombre de tu base de datos
+
+    // Conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verifica la conexión
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Obtener el ID del usuario desde la sesión
+    $user_id = $_SESSION['id_usuario'];  // Asegúrate de tener esta variable en la sesión
+
+    // Obtener el código de alumno y nombre, carrera del alumno
+    $sql = "SELECT a.codigoAlumno, a.nombreAlumno, r.Carrera
+            FROM alumno a
+            JOIN registro r ON a.codigoAlumno = r.codigoAlumno
+            WHERE a.IdUsuario = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Verifica si hay resultados
+    if ($result->num_rows > 0) {
+        // Obtener los datos
+        $row = $result->fetch_assoc();
+        $codigoAlumno = $row['codigoAlumno'];
+        $nombreAlumno = $row['nombreAlumno'];
+        $carrera = $row['Carrera'];
+    } else {
+        // En caso de que no se encuentre el usuario
+        $codigoAlumno = "No disponible";
+        $nombreAlumno = "No disponible";
+        $carrera = "No disponible";
+    }
+
+    // Cierra la conexión
+    $stmt->close();
+    $conn->close();
 ?>  
 
 <!DOCTYPE html>
@@ -82,7 +127,7 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 800px;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -124,15 +169,33 @@
 
     <div class="container">
         <h2>ACREDITACIÓN</h2>
-        <p>Aquí puedes ver la acreditación :)</p>
 
-        <!-- Botón simulado para descargar -->
-        <a href="#" class="btn-download">Eligue tu centro universitario:</a>
+        <div class="container">
+            <!-- Mostrar información del alumno -->
+            <p><strong>Alumno:</strong> <?php echo $codigoAlumno . " - " . $nombreAlumno; ?></p>
+            <p><strong>Carrera:</strong> <?php echo $carrera; ?></p>
 
-        <br><br>
+            <p>Aquí puedes ver la acreditación :)</p>
 
-        <!-- Botón para regresar -->
-        <a href="cart.php" class="btn-back">Volver al menú</a>
+            <!-- Información sobre los requisitos para la acreditación -->
+            <div class="info">
+                <p><strong>YA TIENES LAS HORAS SUFICIENTES</strong> para tramitar la acreditación de tu servicio social.</p>
+                <p>Para realizar tu trámite de acreditación deberás presentar la siguiente documentación en la Unidad de Servicio Social de tu Centro Universitario:</p>
+                <ul>
+                    <li>Kárdex certificado.</li>
+                    <li>Oficio de término.</li>
+                    <li>Informe final de actividades.</li>
+                    <li>Oficio de comisión.</li>
+                    <li>Cuatro fotografías tamaño credencial deben ser de estudio a blanco y negro, con ropa formal (saco oscuro y camisa/blusa clara, hombres con corbata).</li>
+                    <li>Orden de pago.</li>
+                </ul>
+            </div>
+
+            <!-- Botones para elegir centro universitario y regresar -->
+            <div class="btn-container">
+                <a href="generar_pdf.php" class="btn-download">Orden de Pago</a>
+            </div>
+        </div>
     </div>
 
 </body>

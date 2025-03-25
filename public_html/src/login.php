@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if (isset($_SESSION['correo'])) {
-        header('Location: ../src/recetario.php');
+        header('Location: ../src/cart.php');
     }
     if(!isset($_POST['ingresar'])){
 	$correo = (isset($_COOKIE['correo'])) ? $_COOKIE['correo'] : NULL;

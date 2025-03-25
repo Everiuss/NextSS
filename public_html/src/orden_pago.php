@@ -1,8 +1,15 @@
 <?php
-// Aquí podrías agregar validación de sesión si es necesario
-?>  
+session_start();
 
-<!DOCTYPE html>
+// Verificar sesión
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+?>
+
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -146,13 +153,13 @@
         <p>Aquí puedes descargar tu orden de pago para el servicio social.</p>
 
         <!-- Botón para descargar el PDF -->
-        <a href="generar_pdf.php" class="btn-download">Generar y Descargar Orden de Pago</a>
+        <a href="generar_pdf.php" class="btn-download">Generar orden de Pago</a>
 
         <br><br>
 
 
         <br><br>
 
-        <!-- Botón para regresar 
-        <a href="cart.php" class="btn-back">Volver al menú</a>-->
-    </div
+    </div>
+</body>
+</html>

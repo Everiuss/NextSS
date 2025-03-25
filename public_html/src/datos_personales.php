@@ -174,7 +174,7 @@ CloseCon($conn);
 
                 <!-- Datos de Contacto -->
                 <div class="col-md-6">
-                    <h4 class="mt-3">Contacto</h4>
+                    <h4 class="mb-3">Contacto</h4>
                     <div class="form-group">
                         <label for="email">E-mail:</label>
                         <input type="email" class="form-control" id="email" name="email"
@@ -187,7 +187,7 @@ CloseCon($conn);
                     </div>
 
                 <!-- Datos del trabajo -->
-                <h4 class="mt-3">Datos del Trabajo</h4>
+                <h4 class="mb-3">Datos del Trabajo</h4>
                     <div class="form-group">
                         <label for="trabaja">¿Trabaja?</label>
                         <select class="form-control" id="trabaja" name="trabaja" required <?= !empty($alumno) ? 'disabled' : '' ?>>
@@ -204,7 +204,7 @@ CloseCon($conn);
                         <label for="empresa">Empresa:</label>
                         <input type="text" class="form-control" id="empresa" name="empresa"
                             value="<?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? '' : ($alumno['empresa'] ?? '') ?>"
-                            <?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? 'readonly' : '' ?>>
+                            <?= isset($alumno['trabajoBool'])  ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -214,11 +214,13 @@ CloseCon($conn);
         </form>
     </div>
 
-    <script>
+        <script>
         document.addEventListener("DOMContentLoaded", function () {
             const editarBtn = document.getElementById("editarDatos");
             const guardarBtn = document.getElementById("guardarDatos");
             const campos = document.querySelectorAll("input[readonly], select[disabled]");
+            const trabajaSelect = document.getElementById("trabaja");
+            const empresaInput = document.getElementById("empresa");
 
             editarBtn.addEventListener("click", function () {
                 campos.forEach(campo => {
@@ -228,6 +230,15 @@ CloseCon($conn);
 
                 editarBtn.style.display = "none";
                 guardarBtn.style.display = "block";
+            });
+
+            trabajaSelect.addEventListener("change", function () {
+                if (trabajaSelect.value == "1") {
+                    empresaInput.removeAttribute("readonly");
+                } else {
+                    empresaInput.setAttribute("readonly", "readonly");
+                    empresaInput.value = "";
+                }
             });
         });
     </script>

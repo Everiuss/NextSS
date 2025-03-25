@@ -43,7 +43,7 @@
 
 				<br>
 
-&nbsp; &nbsp; <a href="login.php"> <img src="../img/Salir.png" width="40" height="40" alt="Salir" name="Salir"> </a>
+&nbsp; &nbsp; <a href="../index.php"> <img src="../img/Salir.png" width="40" height="40" alt="Salir" name="Salir"> </a>
                 
     <?php
         
