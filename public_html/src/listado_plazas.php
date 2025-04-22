@@ -19,6 +19,21 @@ $stmt->execute();
 $result = $stmt->get_result();
 $alumno = $result->fetch_assoc() ?: [];
 
+
+// Obtener listado de plazas activas
+$sqlPlazas = "SELECT numero_oficio, estatus, fecha_inicio, fecha_fin, dependencia, programa FROM plazas WHERE id_alumno = ?";
+$stmt = $conn->prepare($sqlPlazas);
+$stmt->bind_param("i", $IdUsuario);
+$stmt->execute();  
+$result = $stmt->get_result();
+
+$plazas = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $plazas[] = $row;
+    }
+}
+
 $stmt->close();
 CloseCon($conn);
 ?>
@@ -182,31 +197,40 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container">
             <h3 class="text-center mb-4">Listado de Plazas</h3>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>No. Oficio</th>
-                            <th>Estatus</th>
-                            <th>Fecha Inicio</th>
-                            <th>Fecha Fin</th>
-                            <th>Dependencia</th>
-                            <th>Programa</th>
-                            <th>Detalle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>821/CUCEI/2024B</td>
-                            <td class="text-success">ACTIVA</td>
-                            <td>02/09/2024</td>
-                            <td>-</td>
-                            <td>COMPUTO Y TELECOMUNICACIONES PARA EL APRENDIZAJE CUCEI</td>
-                            <td>Soporte Técnico y Mantenimiento de Equipos de Cómputo</td>
-                            <td><button class="btn btn-info btn-sm" disabled>Detalle</button></td>
-                        </tr>
-                        <!-- Agregar más filas según sea necesario -->
-                    </tbody>
-                </table>
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>No. Oficio</th>
+                    <th>Estatus</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Dependencia</th>
+                    <th>Programa</th>
+                   <!-- <th>Detalle</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($plazas)): ?>
+                    <?php foreach ($plazas as $plaza): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($plaza['numero_oficio']); ?></td>
+                        <td class="<?php echo $plaza['estatus'] === 'ACTIVA' ? 'text-success' : 'text-danger'; ?>">
+                        <?php echo htmlspecialchars($plaza['estatus']); ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($plaza['fecha_inicio']); ?></td>
+                        <td><?php echo htmlspecialchars($plaza['fecha_fin'] ?: '-'); ?></td>
+                        <td><?php echo htmlspecialchars($plaza['dependencia']); ?></td>
+                        <td><?php echo htmlspecialchars($plaza['programa']); ?></td>
+                        <!--<td><button class="btn btn-info btn-sm" disabled>Detalle</button></td>-->
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                    <td colspan="7">No hay plazas activas para mostrar</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
             </div>
         </div>
 
@@ -241,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <!-- Tabla Reporte final -->
         <div class="container">
             <h3 class="text-center mb-4">Reporte final</h3>
-            <button class="btn-download" data-bs-toggle="modal" data-bs-target="#reporteParcialModal">+</button>
+            <button class="btn-download" data-bs-toggle="modal" data-bs-target="#reporteFinalModal">+</button>
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
@@ -273,24 +297,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                <form action="guardar_reporte.php" method="POST">
                     <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <td><strong>Fecha:</strong></td>
-                                <td>24/03/2025 19:53</td>
+                                <td><?php echo date("d/m/Y H:i"); ?></td>
                                 <td><strong>Estatus:</strong></td>
                                 <td>EDICIÓN</td>
                             </tr>
                             <tr>
-                                <td><strong>Tipo:</strong></td>
-                                <td>BIMESTRAL</td>
+                                <td><strong>tipo:</strong></td>
+
+                                <td>
+                                    <select class="form-select" name="tipo_reporte">
+                                        <option value="BIMESTRAL">BIMESTRAL</option>
+                                        <option value="TRIMESTRAL">TRIMESTRAL</option>
+                                    </select>
+                                </td>
                                 <td><strong>Consecutivo:</strong></td>
-                                <td>3</td>
+                                <td><input type="number" class="form-control" name="consecutivo" required></td>
                             </tr>
                             <tr>
                                 <td><strong>Horas reportadas:</strong></td>
                                 <td colspan="3">
-                                    <select class="form-select dynamic-select" data-range="160">
+                                    <select class="form-select dynamic-select" data-range="160" name="horas_reportadas">
                                         <option selected>---</option>
                                     </select>
                                 </td>
@@ -300,22 +331,21 @@ document.addEventListener("DOMContentLoaded", function () {
                             </tr>
                             <tr>
                                 <td><strong>Fecha de inicio:</strong></td>
-                                <td><input type="date" class="form-control"></td>
+                                <td><input type="date" class="form-control" name="fecha_inicio" required></td>
                                 <td><strong>Fecha de fin:</strong></td>
-                                <td><input type="date" class="form-control"></td>
+                                <td><input type="date" class="form-control" name="fecha_fin" required></td>
                             </tr>
                             <tr>
                                 <td colspan="4"><strong>Actividades realizadas:</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <textarea class="form-control" rows="5"></textarea>
+                                    <textarea class="form-control" rows="5" name="actividades_realizadas" required></textarea>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <!-- Tablas adicionales -->
                     <h5 class="mt-4">Evaluación del Servicio Social</h5>
                     <table class="table table-striped">
                         <tbody>
@@ -324,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     ¿Las actividades que estás realizando, se ajustan a las expectativas del programa?
                                 </td>
                                 <td>
-                                    <select class="form-select">
+                                    <select class="form-select" name="actividades_ajustadas">
                                         <option selected>---</option>
                                         <option value="1">SI</option>
                                         <option value="2">NO</option>
@@ -345,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <td>Nuevos conocimientos adquiridos</td>
                                 <td>
-                                    <select class="form-select dynamic-select" data-range="100">
+                                    <select class="form-select dynamic-select" data-range="100" name="nuevos_conocimientos">
                                         <option selected>---</option>
                                     </select>
                                 </td>
@@ -353,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <td>Experiencias formativas personales</td>
                                 <td>
-                                    <select class="form-select dynamic-select" data-range="100">
+                                    <select class="form-select dynamic-select" data-range="100" name="experiencias_formativas">
                                         <option selected>---</option>
                                     </select>
                                 </td>
@@ -361,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <td>Experiencias profesionales</td>
                                 <td>
-                                    <select class="form-select dynamic-select" data-range="100">
+                                    <select class="form-select dynamic-select" data-range="100" name="experiencias_profesionales">
                                         <option selected>---</option>
                                     </select>
                                 </td>
@@ -369,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <td>Adquisición de habilidades</td>
                                 <td>
-                                    <select class="form-select dynamic-select" data-range="100">
+                                    <select class="form-select dynamic-select" data-range="100" name="adquisicion_habilidades">
                                         <option selected>---</option>
                                     </select>
                                 </td>
@@ -378,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </table>
 
                     <h5 class="mt-4">Aportaciones a la Institución</h5>
-                    <textarea class="form-control" rows="3" placeholder="Describe tus principales aportaciones"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="Describe tus principales aportaciones" name="aportaciones_institucion"></textarea>
 
                     <h5 class="mt-4"> </h5>
                     <table class="table table-striped">
@@ -386,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <tr>
                                 <td>¿Consideras que estás cumpliendo las actividades asignadas satisfactoriamente para la institución?</td>
                                 <td>
-                                    <select class="form-select">
+                                    <select class="form-select" name="cumplimiento_actividades">
                                         <option selected>---</option>
                                         <option value="1">SI</option>
                                         <option value="2">NO</option>
@@ -397,11 +427,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         </tbody>
                     </table>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar Reporte</button>
+                    </div>
+                </form>
+
                 
             </div>
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-03-2025 a las 04:15:57
+-- Tiempo de generación: 22-04-2025 a las 21:55:55
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -130,27 +130,35 @@ INSERT INTO `registro` (`idRegistro`, `Centro`, `Carrera`, `CreditosRequeridos`,
 DROP TABLE IF EXISTS `reportes`;
 CREATE TABLE IF NOT EXISTS `reportes` (
   `id_reporte` int NOT NULL AUTO_INCREMENT,
-  `id_alumno` int DEFAULT NULL,
+  `IdUsuario` int DEFAULT NULL,
   `id_plaza` int DEFAULT NULL,
-  `tipo` enum('BIMESTRAL','FINAL') NOT NULL,
+  `tipo_reporte` enum('BIMESTRAL','FINAL') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `consecutivo` int NOT NULL,
   `fecha_reporte` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `horas_reportadas` int NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
-  `actividades` text NOT NULL,
-  `ajuste_programa` enum('SI','NO','EN PARTE') NOT NULL,
+  `actividades_realizadas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `actividades_ajustadas` enum('SI','NO','EN PARTE') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nuevos_conocimientos` int DEFAULT NULL,
   `experiencias_formativas` int DEFAULT NULL,
   `experiencias_profesionales` int DEFAULT NULL,
   `adquisicion_habilidades` int DEFAULT NULL,
-  `aportaciones` text,
+  `aportaciones_institucion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `cumplimiento_actividades` enum('SI','NO','EN PARTE') NOT NULL,
   `estatus` enum('EDICIÓN','APROBADO','RECHAZADO') NOT NULL DEFAULT 'EDICIÓN',
   `ruta_reporte` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_reporte`),
-  KEY `id_alumno` (`id_alumno`),
+  KEY `id_alumno` (`IdUsuario`),
   KEY `id_plaza` (`id_plaza`)
 ) ;
+
+--
+-- Volcado de datos para la tabla `reportes`
+--
+
+INSERT INTO `reportes` (`id_reporte`, `IdUsuario`, `id_plaza`, `tipo_reporte`, `consecutivo`, `fecha_reporte`, `horas_reportadas`, `fecha_inicio`, `fecha_fin`, `actividades_realizadas`, `actividades_ajustadas`, `nuevos_conocimientos`, `experiencias_formativas`, `experiencias_profesionales`, `adquisicion_habilidades`, `aportaciones_institucion`, `cumplimiento_actividades`, `estatus`, `ruta_reporte`) VALUES
+(1, 11, NULL, 'BIMESTRAL', 1, '2025-04-21 03:28:20', 120, '2025-04-24', '2025-04-23', 'Actividades de servicio.', 'SI', 8, 5, 4, 12, 'Aporté habilidades.', 'SI', 'EDICIÓN', NULL);
 
 -- --------------------------------------------------------
 
