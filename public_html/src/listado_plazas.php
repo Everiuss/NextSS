@@ -35,6 +35,27 @@ if ($result->num_rows > 0) {
 }
 
 $stmt->close();
+
+// Obtener reportes parciales del alumno
+$sqlReportes = "SELECT tipo_reporte, consecutivo, fecha_reporte, fecha_inicio, fecha_fin, estatus, ruta_reporte 
+                FROM reportes 
+                WHERE IdUsuario = ? AND tipo_reporte = 'BIMESTRAL' 
+                ORDER BY consecutivo ASC";
+
+$stmt = $conn->prepare($sqlReportes);
+$stmt->bind_param("i", $IdUsuario); // Asegúrate de que $IdUsuario contiene $_SESSION['id_usuario']
+$stmt->execute();
+$result = $stmt->get_result();
+
+$reportesParciales = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $reportesParciales[] = $row;
+    }
+}
+
+
+
 CloseCon($conn);
 ?>
 
@@ -253,9 +274,31 @@ document.addEventListener("DOMContentLoaded", function () {
                         </tr>
                     </thead>
                     <tbody>
+                    <?php if (!empty($reportesParciales)): ?>
+                        <?php foreach ($reportesParciales as $reporte): ?>
+                        <tr><!-- $sqlReportes = "SELECT tipo_reporte, consecutivo, fecha_reporte, fecha_inicio, fecha_fin, estatus, ruta_reporte  -->
+                            <td><?php echo htmlspecialchars($reporte['tipo_reporte']); ?></td>
+                            <td><?php echo htmlspecialchars($reporte['consecutivo']); ?></td>
+                            <td><?php echo date("d/m/Y", strtotime($reporte['fecha_reporte'])); ?></td>
+                            <td></td> <!-- Columna vacía si no se usa -->
+                            <td><?php echo date("d/m/Y", strtotime($reporte['fecha_inicio'])) . " - " . date("d/m/Y", strtotime($reporte['fecha_fin'])); ?></td>
+                            <td><?php echo htmlspecialchars($reporte['estatus']); ?></td>
+                            <td>
+                                <?php if (!empty($reporte['ruta_reporte'])): ?>
+                                    <a href="<?php echo htmlspecialchars($reporte['ruta_reporte']); ?>" target="_blank" class="btn btn-sm btn-primary">Ver</a>
+                                <?php else: ?>
+                                    <span class="text-muted">No disponible</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo htmlspecialchars($reporte['estatus']); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
                             <td colspan="8">No hay registros por mostrar</td>
                         </tr>
+                    <?php endif; ?>
+
                         <!-- Agregar más filas según sea necesario -->
                     </tbody>
                 </table>
