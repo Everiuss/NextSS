@@ -10,6 +10,23 @@ if (!isset($_SESSION['id_usuario'])) {
 $IdUsuario = $_SESSION['id_usuario'];
 $conn = OpenCon();
 
+// Obtener id_plaza de la tabla plazas para el usuario actual
+$sqlPlaza = "SELECT id_plaza FROM plazas WHERE id_alumno = ? AND estatus = 'ACTIVA' LIMIT 1";
+$stmtPlaza = $conn->prepare($sqlPlaza);
+$stmtPlaza->bind_param("i", $IdUsuario);
+$stmtPlaza->execute();
+$resultPlaza = $stmtPlaza->get_result();
+
+if ($row = $resultPlaza->fetch_assoc()) {
+    $id_plaza = $row['id_plaza'];
+} else {
+    echo "<script>alert('No se encontró una plaza activa asociada al alumno.'); window.history.back();</script>";
+    exit();
+}
+
+$stmtPlaza->close();
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Datos del reporte principal
     $tipo_reporte = $_POST['tipo_reporte'];
@@ -34,14 +51,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertar en la tabla reportes
     $sql = "INSERT INTO reportes
-            (IdUsuario, tipo_reporte, consecutivo, horas_reportadas, fecha_inicio, fecha_fin, actividades_realizadas, 
-             actividades_ajustadas, nuevos_conocimientos, experiencias_formativas, experiencias_profesionales, 
-             adquisicion_habilidades, aportaciones_institucion, cumplimiento_actividades) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        (IdUsuario, id_plaza, tipo_reporte, consecutivo, horas_reportadas, fecha_inicio, fecha_fin, actividades_realizadas, 
+         actividades_ajustadas, nuevos_conocimientos, experiencias_formativas, experiencias_profesionales, 
+         adquisicion_habilidades, aportaciones_institucion, cumplimiento_actividades) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssssssssssss", 
+    $stmt->bind_param("iisssssssssssss", 
         $IdUsuario, 
+        $id_plaza,
         $tipo_reporte, 
         $consecutivo,   
         $horas_reportadas, 
@@ -56,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $aportaciones_institucion,
         $cumplimiento_actividades
     );
+
 
 
     if ($stmt->execute()) {

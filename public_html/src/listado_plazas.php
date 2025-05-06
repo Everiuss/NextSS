@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-$stmt->close();
+
 
 // Obtener reportes parciales del alumno
 $sqlReportes = "SELECT tipo_reporte, consecutivo, fecha_reporte, fecha_inicio, fecha_fin, estatus, ruta_reporte 
@@ -55,7 +55,20 @@ if ($result->num_rows > 0) {
 }
 
 
+// Obtener reporte final del alumno
+$sqlReporteFinal = "SELECT tipo_reporte, fecha_reporte, estatus, ruta_reporte 
+                    FROM reportes 
+                    WHERE IdUsuario = ? AND tipo_reporte = 'FINAL' 
+                    LIMIT 1";
 
+$stmt = $conn->prepare($sqlReporteFinal);
+$stmt->bind_param("i", $IdUsuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$reporteFinal = $result->fetch_assoc();
+
+$stmt->close();
 CloseCon($conn);
 ?>
 
@@ -320,11 +333,26 @@ document.addEventListener("DOMContentLoaded", function () {
                         </tr>
                     </thead>
                     <tbody>
+                    <?php if (!empty($reporteFinal)): ?>
+                        <tr>
+                            <td><?php echo date("d/m/Y", strtotime($reporteFinal['fecha_reporte'])); ?></td>
+                            <td><?php echo htmlspecialchars($reporteFinal['estatus']); ?></td>
+                            <td>
+                                <?php if (!empty($reporteFinal['ruta_reporte'])): ?>
+                                    <a href="<?php echo htmlspecialchars($reporteFinal['ruta_reporte']); ?>" target="_blank" class="btn btn-sm btn-primary">Ver</a>
+                                <?php else: ?>
+                                    <span class="text-muted">No disponible</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo htmlspecialchars($reporteFinal['estatus']); ?></td>
+                        </tr>
+                    <?php else: ?>
                         <tr>
                             <td colspan="4">No hay registros por mostrar</td>
                         </tr>
-                        <!-- Agregar más filas según sea necesario -->
+                    <?php endif; ?>
                     </tbody>
+
                 </table>
             </div>
         </div>
@@ -355,7 +383,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <td>
                                     <select class="form-select" name="tipo_reporte">
                                         <option value="BIMESTRAL">BIMESTRAL</option>
-                                        <option value="TRIMESTRAL">TRIMESTRAL</option>
                                     </select>
                                 </td>
                                 <td><strong>Consecutivo:</strong></td>
