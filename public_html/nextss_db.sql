@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 06-05-2025 a las 02:32:42
+-- Tiempo de generación: 07-05-2025 a las 06:07:37
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `correoAlumno` varchar(50) NOT NULL,
   `telefono` varchar(15) NOT NULL,
   `trabajoBool` tinyint(1) NOT NULL,
-  `empresa` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'NA',
+  `empresa` varchar(255) DEFAULT NULL,
   `IdUsuario` int NOT NULL,
   PRIMARY KEY (`codigoAlumno`),
   KEY `fk_alumnos_usuarios` (`IdUsuario`)
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 INSERT INTO `alumno` (`codigoAlumno`, `nombreAlumno`, `curp`, `domicilio`, `fechaNac`, `colonia`, `codigoPostal`, `pais`, `estado`, `ciudad`, `correoAlumno`, `telefono`, `trabajoBool`, `empresa`, `IdUsuario`) VALUES
 (22075694, 'Julian Martinez Heredia', 'MMGHNJSJU88JJ', 'Pino suarez #532', '2002-08-21', 'El Fresno', 44210, 'Mexico', 'Jalisco', 'Guadalajara', 'mmg@gmail.com', '2147483647', 1, 'UDG', 8),
 (220771037, 'Pablo Perez', 'PAPE2257855MRZ', 'Mariano Otero #22079', '1998-12-22', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'pp@gmail.com', '2147455661', 1, 'UDG', 10),
-(220721032, 'Jose Luis Rodriguez ', 'JOLR225842MZX', 'Mariano Otero #22079', '2001-03-20', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'joserod@gmail.com', '2147455698', 0, '0', 11);
+(220721032, 'Jose Luis Rodriguez ', 'JOLR225842MZX', 'Mariano Otero #22079', '2001-03-20', 'Pitayito', 44209, 'Mexico', 'Jalisco', 'Guadalajara', 'joserod@gmail.com', '2147455698', 1, 'UDG', 11);
 
 -- --------------------------------------------------------
 
@@ -127,14 +127,15 @@ CREATE TABLE IF NOT EXISTS `plazas` (
   `programa` varchar(255) NOT NULL,
   PRIMARY KEY (`id_plaza`),
   KEY `id_alumno` (`id_alumno`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `plazas`
 --
 
 INSERT INTO `plazas` (`id_plaza`, `id_alumno`, `numero_oficio`, `estatus`, `fecha_inicio`, `fecha_fin`, `dependencia`, `programa`) VALUES
-(6, 11, '826/CUCEI/2025B', 'ACTIVA', '2025-05-03', NULL, 'Softtek', 'Empresa de soluciones tecnológicas, con presencia en varios países ofreciendo servicios de TI, consultoría y desarrollo de software.'),
+(7, 11, '827/CUCEI/2025B', 'ACTIVA', '2025-05-06', NULL, 'Google México', 'Compañía multinacional especializada en servicios de búsqueda en internet, publicidad online y soluciones de computación en la nube.'),
+(6, 11, '826/CUCEI/2025B', 'INACTIVA', '2025-05-03', NULL, 'Softtek', 'Empresa de soluciones tecnológicas, con presencia en varios países ofreciendo servicios de TI, consultoría y desarrollo de software.'),
 (5, 11, '825/CUCEI/2025B', 'INACTIVA', '2025-05-03', NULL, 'HP Mexico', 'Empresa líder en hardware y software, conocida por sus computadoras, impresoras y soluciones tecnológicas.');
 
 -- --------------------------------------------------------
@@ -203,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `reportes` (
   `ruta_reporte` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_reporte`),
   KEY `id_alumno` (`IdUsuario`),
-  KEY `id_plaza` (`id_plaza`)
+  KEY `fk_plaza` (`id_plaza`)
 ) ;
 
 --
@@ -211,8 +212,40 @@ CREATE TABLE IF NOT EXISTS `reportes` (
 --
 
 INSERT INTO `reportes` (`id_reporte`, `IdUsuario`, `id_plaza`, `tipo_reporte`, `consecutivo`, `fecha_reporte`, `horas_reportadas`, `fecha_inicio`, `fecha_fin`, `actividades_realizadas`, `actividades_ajustadas`, `nuevos_conocimientos`, `experiencias_formativas`, `experiencias_profesionales`, `adquisicion_habilidades`, `aportaciones_institucion`, `cumplimiento_actividades`, `estatus`, `ruta_reporte`) VALUES
-(1, 11, NULL, 'BIMESTRAL', 1, '2025-04-21 03:28:20', 120, '2025-04-24', '2025-04-23', 'Actividades de servicio.', 'SI', 8, 5, 4, 12, 'Aporté habilidades.', 'SI', 'EDICIÓN', NULL),
-(2, 11, NULL, 'BIMESTRAL', 2, '2025-05-02 02:04:01', 160, '2011-02-04', '2016-06-29', 'sakjdfhnsdjnfasr', 'NO', 18, 19, 21, 19, 'dsfgsdfh', 'SI', 'EDICIÓN', NULL);
+(1, 11, 5, 'BIMESTRAL', 1, '2025-04-21 03:28:20', 0, '2025-04-24', '2025-04-23', 'Actividades de servicio.', 'NO', 17, 3, 2, 5, 'Editado 2', 'SI', 'EDICIÓN', '\\public_html\\src\\Reportes\\reporte1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reportes_finales`
+--
+
+DROP TABLE IF EXISTS `reportes_finales`;
+CREATE TABLE IF NOT EXISTS `reportes_finales` (
+  `id_reporte_final` int NOT NULL AUTO_INCREMENT,
+  `IdUsuario` int NOT NULL,
+  `id_plaza` int NOT NULL,
+  `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `estatus` enum('EDICIÓN','VALIDADO','RECHAZADO') NOT NULL DEFAULT 'EDICIÓN',
+  `fecha_termino` date NOT NULL,
+  `objetivos_programa` text NOT NULL,
+  `actividades_realizadas` text NOT NULL,
+  `metas_alcanzadas` text NOT NULL,
+  `metodologia_utilizada` text NOT NULL,
+  `conclusion_propuestas` text NOT NULL,
+  `aporte_innovaciones` text NOT NULL,
+  `ruta_documento` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_reporte_final`),
+  KEY `IdUsuario` (`IdUsuario`),
+  KEY `id_plaza` (`id_plaza`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `reportes_finales`
+--
+
+INSERT INTO `reportes_finales` (`id_reporte_final`, `IdUsuario`, `id_plaza`, `fecha_registro`, `estatus`, `fecha_termino`, `objetivos_programa`, `actividades_realizadas`, `metas_alcanzadas`, `metodologia_utilizada`, `conclusion_propuestas`, `aporte_innovaciones`, `ruta_documento`) VALUES
+(3, 11, 7, '2025-05-07 06:00:39', 'EDICIÓN', '2025-05-31', 'sdgfhjkjl', 'earstdtfgyhj', 'poiuytred', 'poijuhgf', 'sdfhgstrh', 'asdfgsdfhg', '\\public_html\\src\\Reportes\\reporte1.jpg');
 
 -- --------------------------------------------------------
 
@@ -238,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 INSERT INTO `usuarios` (`IdUsuario`, `Correo`, `Contrasena`, `Usuario`, `Nombre`, `Rol`, `Imagen`) VALUES
 (8, '22075694', '827ccb0eea8a706c4c34a16891f84e7b', 'User1', 'Julian', 'Usuario', '1'),
-(10, '220771037', '267f871dd7a510749222a62d52294410', 'Pablo', 'Pablo Perez', 'Usuario', ''),
+(10, '220771037', '267f871dd7a510749222a62d52294410', 'Pablo', 'Pablo Perez', 'Administrador', ''),
 (11, '220721032', '267f871dd7a510749222a62d52294410', 'JoseLuis', 'Jose Luis Rodríguez ', 'Usuario', '');
 COMMIT;
 
