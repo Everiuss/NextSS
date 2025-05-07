@@ -165,30 +165,32 @@
 
   <!-- Dashboard -->
   <div class="header mt-5">DASHBOARD - SERVICIO SOCIAL</div>
-  <div class="container my-4">
-    <div class="row justify-content-center">
-      <div class="col-md-4 card-custom">
-        <h5>Plazas más solicitadas</h5>
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="col-md-4 card-custom">
-        <h5>Total de alumnos registrados</h5>
-        <div style="font-size: 40px; font-weight: bold; color: #0d47a1;">254</div>
-      </div>
-      <div class="col-md-4 card-custom">
-        <h5>Disponibilidad de cupos</h5>
-        <canvas id="availabilityChart"></canvas>
-      </div>
-      <div class="col-md-4 card-custom">
-        <h5>Estudiantes por dependencia</h5>
-        <canvas id="pieChart"></canvas>
-      </div>
-      <div class="col-md-4 card-custom">
-        <h5>Indicador de horas completadas</h5>
-        <canvas id="hoursGauge"></canvas>
-      </div>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-4 card-custom">
+      <h5>Carreras con plazas más solicitadas</h5>
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="col-md-4 card-custom">
+      <h5>Disponibilidad de cupos</h5>
+      <canvas id="availabilityChart"></canvas>
+    </div>
+  </div> <!-- Cerramos la primera fila -->
+
+  <div class="row justify-content-center"> <!-- Nueva fila -->
+    <div class="col-md-4 card-custom">
+      <h5>Estudiantes por dependencia</h5>
+      <canvas id="pieChart"></canvas>
+    </div>
+    
+    <div class="col-md-4 card-custom">
+      <h5>Indicador de horas completadas</h5>
+      <canvas id="hoursGauge"></canvas>
     </div>
   </div>
+</div>
+
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -229,46 +231,106 @@
     });
 
     // Chart.js visualizations
-    new Chart(document.getElementById("barChart"), {
-      type: 'bar',
-      data: {
-        labels: ["IMSS", "Cruz Roja", "Biblioteca UDG", "Secretaría Salud", "DIF"],
-        datasets: [{
-          label: 'Solicitudes',
-          data: [120, 95, 75, 60, 50],
-          backgroundColor: '#1976d2'
-        }]
-      },
-      options: { responsive: true }
-    });
+    function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-    new Chart(document.getElementById("availabilityChart"), {
-      type: 'bar',
-      data: {
-        labels: ["IMSS", "Cruz Roja", "DIF", "Secretaría Salud", "Biblioteca UDG"],
-        datasets: [
-          { label: 'Cupos disponibles', data: [10, 5, 15, 8, 6], backgroundColor: "#1976d2" },
-          { label: 'Cupos ocupados', data: [30, 25, 20, 18, 14], backgroundColor: "#f44336" }
-        ]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        scales: { x: { stacked: true }, y: { stacked: true } }
+new Chart(document.getElementById("barChart"), {
+  type: 'bar',
+  data: {
+    labels: ["INNI", "INCO", "INRO", "INBI", "INEA"],
+    datasets: [{
+      label: 'Solicitudes',
+      data: [
+        getRandomInt(50, 150),
+        getRandomInt(50, 150),
+        getRandomInt(50, 150),
+        getRandomInt(50, 150),
+        getRandomInt(50, 150)
+      ],
+      backgroundColor: [
+        '#1976d2', // Azul
+        '#4caf50', // Verde
+        '#ff9800', // Naranja
+        '#f44336', // Rojo
+        '#9c27b0'  // Morado
+      ]
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
       }
-    });
+    }
+  }
+});
 
-    new Chart(document.getElementById("pieChart"), {
-      type: 'pie',
-      data: {
-        labels: ["IMSS", "Cruz Roja", "Secretaría Salud", "DIF"],
-        datasets: [{
-          data: [40, 30, 20, 10],
-          backgroundColor: ["#2196f3", "#4caf50", "#ffeb3b", "#f44336"]
-        }]
-      },
-      options: { responsive: true }
-    });
+
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const empresas = [
+  "INTEL", "IBM", "ORACLE", "MICROSOFT", "GOOGLE", "TATA", "LUXOFT", 
+  "HP", "KUKA", "ABB MEXICO", "YASKAWA", "BOSTON", "PHILIPS", "MERCEDES", "BMW"
+];
+
+const cuposDisponibles = empresas.map(() => getRandomInt(5, 20));
+const cuposOcupados = empresas.map(() => getRandomInt(10, 40));
+
+new Chart(document.getElementById("availabilityChart"), { 
+  type: 'bar',
+  data: {
+    labels: empresas,
+    datasets: [
+      { label: 'Cupos disponibles', data: cuposDisponibles, backgroundColor: "#1976d2" },
+      { label: 'Cupos ocupados', data: cuposOcupados, backgroundColor: "#f44336" }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true }
+    }
+  }
+});
+
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Tonos de azul y colores oscuros definidos manualmente
+const darkBlueColors = [
+  "#0d47a1", "#1565c0", "#1976d2", "#1e88e5", "#2196f3",
+  "#283593", "#303f9f", "#3949ab", "#3f51b5", "#5c6bc0",
+  "#26418f", "#102027", "#013243", "#0b3954", "#1a237e"
+];
+
+const empresasPie = [
+  "INTEL", "IBM", "ORACLE", "MICROSOFT", "GOOGLE", "TATA", "LUXOFT", 
+  "HP", "KUKA", "ABB MEXICO", "YASKAWA", "BOSTON", "PHILIPS", "MERCEDES", "BMW"
+];
+
+const dataPie = empresasPie.map(() => getRandomInt(5, 30));
+
+new Chart(document.getElementById("pieChart"), {
+  type: 'pie',
+  data: {
+    labels: empresasPie,
+    datasets: [{
+      data: dataPie,
+      backgroundColor: darkBlueColors
+    }]
+  },
+  options: { responsive: true }
+});
+
 
     const completedHours = 320;
     const requiredHours = 480;
