@@ -109,6 +109,24 @@
       text-align: center;
       margin-bottom: 20px;
     }
+
+    .dot-typing {
+      display: inline-block;
+      width: 1em;
+      text-align: left;
+    }
+
+    .dot-typing::after {
+      content: '...';
+      animation: typingDots 1s steps(3, end) infinite;
+    }
+
+    @keyframes typingDots {
+      0%   { content: ''; }
+      33%  { content: '.'; }
+      66%  { content: '..'; }
+      100% { content: '...'; }
+    }
   </style>
 </head>
 <body>
@@ -200,16 +218,56 @@
   <script>
     function toggleChatbox() {
       const chatbox = document.getElementById("chatbox");
-      chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
+      const chatBody = document.getElementById("chat-body");
+
+      if (chatbox.style.display === "block") {
+        chatbox.style.display = "none";
+      } else {
+        chatbox.style.display = "block";
+
+        // Mensaje de bienvenida solo una vez
+        if (!chatOpened) {
+          chatBody.innerHTML += `<div style="text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;">Bot: ¡Hola! Soy Servibot. ¿En qué puedo ayudarte hoy?</div>`;
+          chatBody.scrollTop = chatBody.scrollHeight;
+          chatOpened = true;
+        }
+      }
     }
 
+    let chatOpened = false; // bandera para saber si ya se abrió
     const socket = io("wss://chatbot-ws-ofa9.onrender.com");
 
     socket.on("respuesta", function(data) {
-      let chatBody = document.getElementById("chat-body");
-      chatBody.innerHTML += `<div style="text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;">Bot: ${data.respuesta}</div>`;
+      const chatBody = document.getElementById("chat-body");
+
+      // Crear burbuja de "escribiendo..."
+      const typingIndicator = document.createElement("div");
+      typingIndicator.id = "typing-indicator";
+      typingIndicator.style.cssText = "text-align:left; background:#f1f1f1; padding:5px; border-radius:10px; margin:5px 0;";
+      typingIndicator.innerHTML = 'Bot: <span class="dot-typing"></span>';
+      chatBody.appendChild(typingIndicator);
       chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Esperar un poco antes de comenzar a escribir (opcional)
+      setTimeout(() => {
+        // Reemplazar burbuja de "escribiendo..." con texto real
+        typingIndicator.innerHTML = "Bot: ";
+        let i = 0;
+        const texto = data.respuesta;
+
+        const escribir = () => {
+          if (i < texto.length) {
+            typingIndicator.innerHTML += texto.charAt(i);
+            i++;
+            chatBody.scrollTop = chatBody.scrollHeight;
+            setTimeout(escribir, 30); // velocidad de escritura
+          }
+        };
+
+        escribir();
+      }, 800); // tiempo que permanece el indicador antes de empezar (en ms)
     });
+
 
     function sendMessage() {
       let input = document.getElementById("chat-input");
@@ -307,9 +365,30 @@ function getRandomInt(min, max) {
 
 // Tonos de azul y colores oscuros definidos manualmente
 const darkBlueColors = [
-  "#0d47a1", "#1565c0", "#1976d2", "#1e88e5", "#2196f3",
-  "#283593", "#303f9f", "#3949ab", "#3f51b5", "#5c6bc0",
-  "#26418f", "#102027", "#013243", "#0b3954", "#1a237e"
+  // Azules
+  "#1f77b4", // azul clásico
+  "#3498db", // azul brillante
+  "#5dade2", // azul claro
+
+  // Verdes
+  "#2ca02c", // verde brillante
+  "#27ae60", // verde esmeralda
+  "#82e0aa", // verde claro
+
+  // Amarillos
+  "#f1c40f", // amarillo dorado
+  "#f9e79f", // amarillo claro
+  "#ffdd57", // amarillo mostaza
+
+  // Naranjas
+  "#e67e22", // naranja medio
+  "#ff7f0e", // naranja vibrante
+  "#f5b041", // naranja claro
+
+  // Rojos
+  "#d62728", // rojo intenso
+  "#e74c3c", // rojo brillante
+  "#f1948a"  // rojo claro/salmón
 ];
 
 const empresasPie = [

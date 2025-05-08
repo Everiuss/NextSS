@@ -79,8 +79,6 @@ CloseCon($conn);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-
-
     <title>Listado de plazas</title>
     <style>
         body {
@@ -195,6 +193,79 @@ CloseCon($conn);
         .btn-download:hover, .btn-back:hover {
             background-color: #0056b3;
         }
+
+        /* Estilos para tablas en móviles */
+        @media (max-width: 768px) {
+            /* Convertir tablas en bloques apilados */
+            .table-responsive table, 
+            .table-responsive thead, 
+            .table-responsive tbody, 
+            .table-responsive th, 
+            .table-responsive td, 
+            .table-responsive tr { 
+                display: block; 
+            }
+            
+            /* Ocultar cabeceras normales */
+            .table-responsive thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            .table-responsive tr { 
+                border: 1px solid #ccc; 
+                margin-bottom: 10px;
+            }
+            
+            .table-responsive td { 
+                /* Behave  like a "row" */
+                border: none;
+                border-bottom: 1px solid #eee; 
+                position: relative;
+                padding-left: 50%; 
+                text-align: left;
+                min-height: 35px;
+            }
+            
+            .table-responsive td:before { 
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 6px;
+                left: 6px;
+                width: 45%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                content: attr(data-label);
+                font-weight: bold;
+                color: #004080;
+            }
+
+            /* Estilos específicos para cada tabla */
+            /* Tabla de plazas */
+            #tabla-plazas td[data-label="No. Oficio"]:before { content: "No. Oficio"; }
+            #tabla-plazas td[data-label="Estatus"]:before { content: "Estatus"; }
+            #tabla-plazas td[data-label="Fecha Inicio"]:before { content: "Fecha Inicio"; }
+            #tabla-plazas td[data-label="Fecha Fin"]:before { content: "Fecha Fin"; }
+            #tabla-plazas td[data-label="Dependencia"]:before { content: "Dependencia"; }
+            #tabla-plazas td[data-label="Programa"]:before { content: "Programa"; }
+
+            /* Tabla de reportes parciales */
+            #tabla-reportes td[data-label="Tipo"]:before { content: "Tipo"; }
+            #tabla-reportes td[data-label="No."]:before { content: "No."; }
+            #tabla-reportes td[data-label="Fecha"]:before { content: "Fecha"; }
+            #tabla-reportes td[data-label="Periodo Reportado"]:before { content: "Periodo Reportado"; }
+            #tabla-reportes td[data-label="Estatus"]:before { content: "Estatus"; }
+            #tabla-reportes td[data-label="Reporte"]:before { content: "Reporte"; }
+            #tabla-reportes td[data-label="Acciones"]:before { content: "Acciones"; }
+
+            /* Tabla de reportes finales */
+            #tabla-finales td[data-label="Registro"]:before { content: "Registro"; }
+            #tabla-finales td[data-label="Estatus"]:before { content: "Estatus"; }
+            #tabla-finales td[data-label="Reporte"]:before { content: "Reporte"; }
+            #tabla-finales td[data-label="Acciones"]:before { content: "Acciones"; }
+        }
     </style>
 </head>
 
@@ -229,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container">
             <h3 class="text-center mb-4">Listado de Plazas</h3>
             <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="tabla-plazas">
                 <thead class="table-dark">
                 <tr>
                     <th>No. Oficio</th>
@@ -245,14 +316,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 <?php if (!empty($plazas)): ?>
                     <?php foreach ($plazas as $plaza): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($plaza['numero_oficio']); ?></td>
-                        <td class="<?php echo $plaza['estatus'] === 'ACTIVA' ? 'text-success' : 'text-danger'; ?>">
+                        <td data-label="No. Oficio"><?php echo htmlspecialchars($plaza['numero_oficio']); ?></td>
+                        <td data-label="Estatus" class="<?php echo $plaza['estatus'] === 'ACTIVA' ? 'text-success' : 'text-danger'; ?>">
                         <?php echo htmlspecialchars($plaza['estatus']); ?>
                         </td>
-                        <td><?php echo htmlspecialchars($plaza['fecha_inicio']); ?></td>
-                        <td><?php echo htmlspecialchars($plaza['fecha_fin'] ?: '-'); ?></td>
-                        <td><?php echo htmlspecialchars($plaza['dependencia']); ?></td>
-                        <td><?php echo htmlspecialchars($plaza['programa']); ?></td>
+                        <td data-label="Fecha Inicio"><?php echo htmlspecialchars($plaza['fecha_inicio']); ?></td>
+                        <td data-label="Fecha Fin"><?php echo htmlspecialchars($plaza['fecha_fin'] ?: '-'); ?></td>
+                        <td data-label="Dependencia"><?php echo htmlspecialchars($plaza['dependencia']); ?></td>
+                        <td data-label="Programa"><?php echo htmlspecialchars($plaza['programa']); ?></td>
                         <!--<td><button class="btn btn-info btn-sm" disabled>Detalle</button></td>-->
                     </tr>
                     <?php endforeach; ?>
@@ -271,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3 class="text-center mb-4">Reportes parciales</h3>
             <button class="btn-download" data-bs-toggle="modal" data-bs-target="#reporteParcialModal">+</button>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="tabla-reportes">
                     <thead class="table-dark">
                         <tr>
                             <th>Tipo</th>
@@ -288,20 +359,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     <?php if (!empty($reportesParciales)): ?>
                         <?php foreach ($reportesParciales as $reporte): ?>
                         <tr><!-- $sqlReportes = "SELECT tipo_reporte, consecutivo, fecha_reporte, fecha_inicio, fecha_fin, estatus, ruta_reporte  -->
-                            <td><?php echo htmlspecialchars($reporte['tipo_reporte']); ?></td>
-                            <td><?php echo htmlspecialchars($reporte['consecutivo']); ?></td>
-                            <td><?php echo date("d/m/Y", strtotime($reporte['fecha_reporte'])); ?></td>
+                            <td data-label="Tipo"><?php echo htmlspecialchars($reporte['tipo_reporte']); ?></td>
+                            <td data-label="No."><?php echo htmlspecialchars($reporte['consecutivo']); ?></td>
+                            <td data-label="Fecha"><?php echo date("d/m/Y", strtotime($reporte['fecha_reporte'])); ?></td>
                             <td></td> <!-- Columna vacía si no se usa -->
-                            <td><?php echo date("d/m/Y", strtotime($reporte['fecha_inicio'])) . " - " . date("d/m/Y", strtotime($reporte['fecha_fin'])); ?></td>
-                            <td><?php echo htmlspecialchars($reporte['estatus']); ?></td>
-                            <td>
+                            <td data-label="Periodo Reportado"><?php echo date("d/m/Y", strtotime($reporte['fecha_inicio'])) . " - " . date("d/m/Y", strtotime($reporte['fecha_fin'])); ?></td>
+                            <td data-label="Estatus"><?php echo htmlspecialchars($reporte['estatus']); ?></td>
+                            <td data-label="Reporte">
                                 <?php if (!empty($reporte['ruta_reporte'])): ?>
                                     <a href="<?php echo htmlspecialchars($reporte['ruta_reporte']); ?>" target="_blank" class="btn btn-sm btn-primary">Ver</a>
                                 <?php else: ?>
                                     <span class="text-muted">No disponible</span>
                                 <?php endif; ?>
                             </td>
-                            <td>
+                            <td data-label="Acciones">
                                 <!-- Botones de acción -->
                                 <button 
                                     class="btn btn-sm btn-warning btn-editar-reporte" 
@@ -336,8 +407,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
 
-                                <button class="btn btn-sm btn-success" title="Descargar">
-                                    <i class="bi bi-download"></i>
+                                <a href="generar_reporte_bimestral.php?id_reporte=<?php echo $reporte['id_reporte']; ?>" 
+                                 class="btn btn-sm btn-success" 
+                                title="Descargar">
+                                <i class="bi bi-download"></i>
+                                </a>
                                 </button>
                             </td>
                         </tr>
@@ -358,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3 class="text-center mb-4">Reporte final</h3>
             <button class="btn-download" data-bs-toggle="modal" data-bs-target="#reporteFinalModal">+</button>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="tabla-finales">
                     <thead class="table-dark">
                         <tr>
                             <th>Registro</th>
@@ -371,16 +445,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         <?php if (!empty($reportesFinales)): ?>
                             <?php foreach ($reportesFinales as $reporte): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($reporte['fecha_registro']); ?></td>
-                                <td><?php echo htmlspecialchars($reporte['estatus']); ?></td>
-                                <td>
+                                <td data-label="Registro"><?php echo htmlspecialchars($reporte['fecha_registro']); ?></td>
+                                <td data-label="Estatus"><?php echo htmlspecialchars($reporte['estatus']); ?></td>
+                                <td data-label="Reporte">
                                     <?php if (!empty($reporte['ruta_documento'])): ?>
                                         <a href="<?php echo htmlspecialchars($reporte['ruta_documento']); ?>" target="_blank" class="btn btn-sm btn-primary">Ver</a>
                                     <?php else: ?>
                                         <span class="text-muted">No disponible</span>
                                     <?php endif; ?>
                                 </td>
-                                <td>
+                                <td data-label="Acciones">
                                     <!-- Botones de acción -->
                                     <button 
                                         class="btn btn-sm btn-warning btn-editar-reporte-final" 
@@ -407,8 +481,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
 
-                                    <button class="btn btn-sm btn-success" title="Descargar">
-                                        <i class="bi bi-download"></i>
+                                    <a href="generar_reporte_final.php" 
+                                    class="btn btn-sm btn-success" 
+                                    title="Descargar">
+                                    <i class="bi bi-download"></i>
+                                    </a>
                                     </button>
                                 </td>
                             </tr>
@@ -579,7 +656,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="modal-dialog modal-lg">
             <form action="actualizar_reporte.php" method="POST">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header bg-warning text-dark">
                         <h5 class="modal-title">Editar reporte parcial</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
@@ -607,7 +684,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <textarea class="form-control" name="actividades_realizadas" id="edit_actividades" rows="4"></textarea>
                         </div>
 
-                        <h5 class="mt-4 text-primary">Evaluación del Servicio Social</h5>
+                        <h5 class="mt-4 text-warning">Evaluación del Servicio Social</h5>
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
@@ -627,7 +704,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </table>
 
                         <table class="table table-striped">
-                            <thead class="table-primary">
+                            <thead class="table-warning">
                                 <tr>
                                     <th>Aspecto Evaluado</th>
                                     <th>Calificación</th>
@@ -669,7 +746,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </tbody>
                         </table>
 
-                        <h5 class="mt-4 text-primary">Aportaciones a la Institución</h5>
+                        <h5 class="mt-4 text-warning">Aportaciones a la Institución</h5>
                         <textarea class="form-control" rows="3" placeholder="Describe tus principales aportaciones" name="aportaciones_institucion" id="edit_aportaciones_institucion"></textarea>
 
                         <table class="table table-striped mt-4">
@@ -690,7 +767,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        <button type="submit" class="btn btn-warning">Guardar cambios</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>

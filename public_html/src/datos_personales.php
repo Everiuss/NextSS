@@ -2,7 +2,6 @@
 session_start();
 include("db_connection.php");
 
-// Verificar sesión
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +10,6 @@ if (!isset($_SESSION['id_usuario'])) {
 $IdUsuario = $_SESSION['id_usuario'];
 $conn = OpenCon();
 
-// Obtener datos del alumno
 $sql = "SELECT * FROM alumno WHERE IdUsuario = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $IdUsuario);
@@ -31,12 +29,11 @@ CloseCon($conn);
     <title>Registro de Datos</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/main.css">
-
     <style>
         html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
         body {
             background: linear-gradient(45deg, #a2c2e7, #86b3d1);
@@ -50,65 +47,52 @@ CloseCon($conn);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 95%;
         }
-        /* Estilos generales */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #004080; /* Azul UDG */
+            background-color: #004080;
             color: white;
             padding: 15px 20px;
             font-family: Arial, sans-serif;
             width: 100%;
             box-sizing: border-box;
         }
-
-        /* Estilos del título */
         .header h1 {
             margin: 0;
             font-size: 1.8rem;
         }
-
-        /* Estilos del botón */
         .logout-button {
-            background-color:rgb(52, 170, 185);
+            background-color: rgb(52, 170, 185);
             color: white;
             padding: 10px 15px;
             text-decoration: none;
             border-radius: 5px;
             font-size: 1rem;
         }
-
-        /* 📱 Ajustes para pantallas pequeñas */
         @media (max-width: 768px) {
             .header {
-                flex-direction: column; /* Elementos en columna */
+                flex-direction: column;
                 text-align: center;
             }
-
             .header h1 {
                 font-size: 1.5rem;
                 margin-bottom: 10px;
             }
-
             .logout-button {
                 width: 100%;
                 text-align: center;
                 padding: 12px 0;
             }
         }
-
         .action-button:hover {
             background-color: rgb(35, 30, 150);
         }
-       
-        
         .logout-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
-
 <body>
     <div class="header">
         <h1>Registro de Datos - Servicio Social</h1>
@@ -116,7 +100,7 @@ CloseCon($conn);
     </div>
 
     <div class="container">
-        <form method="POST" action="registro_datos.php">
+        <form method="POST" action="registro_datos.php" id="datosForm">
             <div class="row">
                 <div class="col-md-6">
                     <h4 class="mb-3">Datos del Alumno</h4>
@@ -172,7 +156,6 @@ CloseCon($conn);
                     </div>
                 </div>
 
-                <!-- Datos de Contacto -->
                 <div class="col-md-6">
                     <h4 class="mb-3">Contacto</h4>
                     <div class="form-group">
@@ -186,8 +169,7 @@ CloseCon($conn);
                             value="<?= $alumno['telefono'] ?? '' ?>" required <?= !empty($alumno) ? 'readonly' : '' ?>>
                     </div>
 
-                <!-- Datos del trabajo -->
-                <h4 class="mb-3">Datos del Trabajo</h4>
+                    <h4 class="mb-3">Datos del Trabajo</h4>
                     <div class="form-group">
                         <label for="trabaja">¿Trabaja?</label>
                         <select class="form-control" id="trabaja" name="trabaja" required <?= !empty($alumno) ? 'disabled' : '' ?>>
@@ -203,44 +185,77 @@ CloseCon($conn);
                     <div class="form-group">
                         <label for="empresa">Empresa:</label>
                         <input type="text" class="form-control" id="empresa" name="empresa"
-                            value="<?= isset($alumno['trabajoBool']) && $alumno['trabajoBool'] == 0 ? '' : ($alumno['empresa'] ?? '') ?>"
-                            <?= isset($alumno['trabajoBool'])  ? 'readonly' : '' ?>>
+    value="<?= $alumno['trabajoBool'] == 1 ? ($alumno['empresa'] ?? '') : '' ?>"
+    <?= $alumno['trabajoBool'] == 1 ? 'readonly' : 'readonly' ?>>
+
                     </div>
                 </div>
             </div>
 
-            <button type="button" class="action-button" id="editarDatos">Editar datos</button>
+            <button type="button" class="btn btn-primary mt-3" id="editarDatos">Editar datos</button>
             <button type="submit" class="btn btn-primary mt-3" id="guardarDatos" style="display:none;">Guardar Datos</button>
         </form>
     </div>
 
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const editarBtn = document.getElementById("editarDatos");
-            const guardarBtn = document.getElementById("guardarDatos");
-            const campos = document.querySelectorAll("input[readonly], select[disabled]");
-            const trabajaSelect = document.getElementById("trabaja");
-            const empresaInput = document.getElementById("empresa");
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const editarBtn = document.getElementById("editarDatos");
+    const guardarBtn = document.getElementById("guardarDatos");
+    const trabajaSelect = document.getElementById("trabaja");
+    const empresaInput = document.getElementById("empresa");
+    const form = document.getElementById("datosForm");
 
-            editarBtn.addEventListener("click", function () {
-                campos.forEach(campo => {
-                    campo.removeAttribute("readonly");
-                    campo.removeAttribute("disabled");
-                });
+    // Validación antes de enviar el formulario
+    form.addEventListener("submit", function (e) {
+        if (trabajaSelect.value === "1" && empresaInput.value.trim() === "") {
+            e.preventDefault();
+            alert("Debes ingresar el nombre de la empresa si trabajas.");
+            empresaInput.focus();
+        }
+    });
 
-                editarBtn.style.display = "none";
-                guardarBtn.style.display = "block";
-            });
+    editarBtn.addEventListener("click", function () {
+        empresaInput.removeAttribute("readonly"); 
+        document.querySelectorAll("input:not(#codigo):not(#nombre_alumno):not(#curp), select").forEach(campo => {
+        campo.removeAttribute("readonly");
+        campo.removeAttribute("disabled");
+    });
 
-            trabajaSelect.addEventListener("change", function () {
-                if (trabajaSelect.value == "1") {
-                    empresaInput.removeAttribute("readonly");
-                } else {
-                    empresaInput.setAttribute("readonly", "readonly");
-                    empresaInput.value = "";
-                }
-            });
-        });
+        if (trabajaSelect.value === "0") {
+            empresaInput.setAttribute("readonly", "readonly");
+            empresaInput.removeAttribute("required");
+        } else {
+            empresaInput.removeAttribute("readonly");
+            empresaInput.setAttribute("required", "required");
+        }
+
+        editarBtn.style.display = "none";
+        guardarBtn.style.display = "block";
+
+        if (trabajaSelect.value === "1") {
+    empresaInput.removeAttribute("readonly");
+    empresaInput.setAttribute("required", "required");
+} else {
+    empresaInput.setAttribute("readonly", "readonly");
+    empresaInput.removeAttribute("required");
+    empresaInput.value = "";
+}
+
+    });
+
+    trabajaSelect.addEventListener("change", function () {
+        if (trabajaSelect.value === "1") {
+            empresaInput.removeAttribute("readonly");
+            empresaInput.setAttribute("required", "required");
+        } else {
+            empresaInput.setAttribute("readonly", "readonly");
+            empresaInput.removeAttribute("required");
+            empresaInput.value = "";  // Borramos el valor si no trabaja
+        }
+    });
+});
+
     </script>
+    
 </body>
 </html>

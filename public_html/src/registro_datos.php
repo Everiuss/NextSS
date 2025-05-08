@@ -1,88 +1,91 @@
 <?php
-session_start(); // Iniciar sesión para acceder a $_SESSION
-include 'db_connection.php';
-$conn = OpenCon();
+session_start();
+include("db_connection.php");
 
-// Verificar si se enviaron datos desde el formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!isset($_SESSION['id_usuario'])) {
-        echo "<script>
-                alert('Error: No hay una sesión activa.');
-                window.location.href='login.php';
-              </script>";
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $IdUsuario = $_SESSION['id_usuario'];
+
+    // Conexión
+    $conn = OpenCon();
+
+    // Recibir y limpiar datos
+    $codigo = $_POST['codigo'] ?? '';
+    $nombre = $_POST['nombre_alumno'] ?? '';
+    $curp = $_POST['curp'] ?? '';
+    $domicilio = $_POST['domicilio'] ?? '';
+    $fecha_nac = $_POST['fecha_nacimiento'] ?? '';
+    $colonia = $_POST['colonia'] ?? '';
+    $codigo_postal = $_POST['codigo_postal'] ?? '';
+    $pais = $_POST['pais'] ?? '';
+    $estado = $_POST['estado'] ?? '';
+    $ciudad = $_POST['ciudad'] ?? '';
+    $correo = $_POST['email'] ?? '';
+    $telefono = $_POST['telefono'] ?? '';
+    $trabaja = $_POST['trabaja'] ?? '0';
+
+    // Si trabaja, obtener el nombre de la empresa; si no, dejar en null
+    $empresa = ($trabaja == '1' && isset($_POST['empresa']) && $_POST['empresa'] !== '') ? $_POST['empresa'] : null;
+
+    // Validación extra: si trabaja debe haber empresa
+    if ($trabaja == '1' && empty($empresa)) {
+        CloseCon($conn);
+        echo "Error: Debes ingresar el nombre de la empresa si trabajas.";
         exit();
     }
 
-    $id_usuario = $_SESSION['id_usuario']; // Obtener el ID del usuario de la sesión
-    $codigo = $_POST['codigo'];
-    $nombre = $_POST['nombre_alumno'];
-    $curp = $_POST['curp'];
-    $domicilio = $_POST['domicilio'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $colonia = $_POST['colonia'];
-    $codigo_postal = $_POST['codigo_postal'];
-    $pais = $_POST['pais'];
-    $estado = $_POST['estado'];
-    $ciudad = $_POST['ciudad'];
-    $email = $_POST['email'];
-    $telefono = $_POST['telefono'];
-    $trabaja = $_POST['trabaja'];
-    $empresa = (!empty($_POST['empresa']) && $_POST['trabaja'] == "si") ? $_POST['empresa'] : 'NA';
-    $trabajaBool = ($trabaja == "si") ? 1 : 0;
+    // Consulta para insertar o actualizar
+    $sql = "INSERT INTO alumno 
+        (IdUsuario, codigoAlumno, nombreAlumno, curp, domicilio, fechaNac, colonia, codigoPostal, pais, estado, ciudad, correoAlumno, telefono, trabajoBool, empresa)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+        codigoAlumno = VALUES(codigoAlumno),
+        nombreAlumno = VALUES(nombreAlumno),
+        curp = VALUES(curp),
+        domicilio = VALUES(domicilio),
+        fechaNac = VALUES(fechaNac),
+        colonia = VALUES(colonia),
+        codigoPostal = VALUES(codigoPostal),
+        pais = VALUES(pais),
+        estado = VALUES(estado),
+        ciudad = VALUES(ciudad),
+        correoAlumno = VALUES(correoAlumno),
+        telefono = VALUES(telefono),
+        trabajoBool = VALUES(trabajoBool),
+        empresa = VALUES(empresa)";
 
-    // Verificar si el alumno ya existe
-    $sql_check = "SELECT * FROM alumno WHERE codigoAlumno = ?";
-    $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bind_param("s", $codigo);
-    $stmt_check->execute();
-    $result = $stmt_check->get_result();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "issssssssssssis",
+        $IdUsuario,
+        $codigo,
+        $nombre,
+        $curp,
+        $domicilio,
+        $fecha_nac,
+        $colonia,
+        $codigo_postal,
+        $pais,
+        $estado,
+        $ciudad,
+        $correo,
+        $telefono,
+        $trabaja,
+        $empresa
+    );
 
-    if ($result->num_rows > 0) {
-        // Si existe, actualizar
-        $sql_update = "UPDATE alumno SET 
-                        nombreAlumno=?, curp=?, domicilio=?, fechaNac=?, 
-                        colonia=?, codigoPostal=?, pais=?, estado=?, ciudad=?, 
-                        correoAlumno=?, telefono=?, trabajoBool=?, empresa=? 
-                        WHERE codigoAlumno=?";
-        $stmt = $conn->prepare($sql_update);
-        $stmt->bind_param("ssssssssssssis", 
-            $nombre, $curp, $domicilio, $fecha_nacimiento, 
-            $colonia, $codigo_postal, $pais, $estado, $ciudad, 
-            $email, $telefono, $trabajaBool, $empresa, $codigo);
-    } else {
-        // Si no existe, insertar con IdUsuario
-        $sql_insert = "INSERT INTO alumno 
-                        (codigoAlumno, nombreAlumno, curp, domicilio, fechaNac, 
-                         colonia, codigoPostal, pais, estado, ciudad, 
-                         correoAlumno, telefono, trabajoBool, empresa, IdUsuario) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("sssssssssssssii", 
-            $codigo, $nombre, $curp, $domicilio, $fecha_nacimiento, 
-            $colonia, $codigo_postal, $pais, $estado, $ciudad, 
-            $email, $telefono, $trabajaBool, $empresa, $id_usuario);
-    }
-
-    // Ejecutar consulta
     if ($stmt->execute()) {
-        echo "<script>
-                alert('Datos guardados correctamente');
-                window.location.href='datos_personales.php';
-              </script>";
+        header("Location: cart.php?guardado=1");
+        exit();
     } else {
-        echo "<script>
-                alert('Error al guardar los datos: " . $stmt->error . "');
-              </script>";
+        echo "Error al guardar: " . $stmt->error;
     }
 
-    // Cerrar conexiones
     $stmt->close();
-    $stmt_check->close();
     CloseCon($conn);
-} else {
-    echo "<script>
-            alert('Acceso no autorizado');
-            window.location.href='datos_personales.php';
-          </script>";
 }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-05-2025 a las 06:07:37
+-- Tiempo de generación: 08-05-2025 a las 03:32:15
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `IdUsuario` int NOT NULL,
   PRIMARY KEY (`codigoAlumno`),
   KEY `fk_alumnos_usuarios` (`IdUsuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `alumno`
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `ofertas` (
   `lugares` int NOT NULL,
   `lugares_restantes` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `ofertas`
@@ -87,7 +87,7 @@ INSERT INTO `ofertas` (`id`, `centro`, `carrera`, `dependencia`, `programa`, `tu
 (2, 'CUCEI', 'INNI', 'IBM México', 'Empresa global de tecnología y consultoría, líder en inteligencia artificial, computación en la nube y soluciones empresariales.', 'Vespertino', '14:00:00', '20:00:00', 9, 9),
 (3, 'CUCEI', 'INNI', 'Oracle México', 'Multinacional especializada en bases de datos, software empresarial y soluciones en la nube.', 'Nocturno', '20:00:00', '02:00:00', 20, 20),
 (4, 'CUCEI', 'INNI', 'Microsoft México', 'Empresa líder en software y servicios en la nube, incluyendo Office 365 y Azure.', 'Matutino', '09:00:00', '15:00:00', 10, 10),
-(5, 'CUCEI', 'INNI', 'Google México', 'Compañía multinacional especializada en servicios de búsqueda en internet, publicidad online y soluciones de computación en la nube.', 'Vespertino', '15:00:00', '21:00:00', 8, 8),
+(5, 'CUCEI', 'INNI', 'Google México', 'Multinacional especializada en busqueda por internet, publicidad online y soluciones en la nube.', 'Vespertino', '15:00:00', '21:00:00', 8, 8),
 (6, 'CUCEI', 'INCO', 'Tata Consultancy Services (TCS)', 'Multinacional de servicios de TI, consultoría y soluciones empresariales, con una fuerte presencia en México.', 'Matutino', '08:00:00', '03:00:00', 15, 15),
 (7, 'CUCEI', 'INCO', 'Luxoft México', 'Empresa de desarrollo de software y soluciones digitales para sectores como la banca, la automoción y la salud.', 'Vespertino', '14:00:00', '21:00:00', 9, 9),
 (8, 'CUCEI', 'INCO', 'HP Mexico', 'Empresa líder en hardware y software, conocida por sus computadoras, impresoras y soluciones tecnológicas.', 'Matutino', '08:00:00', '02:00:00', 22, 22),
@@ -127,16 +127,15 @@ CREATE TABLE IF NOT EXISTS `plazas` (
   `programa` varchar(255) NOT NULL,
   PRIMARY KEY (`id_plaza`),
   KEY `id_alumno` (`id_alumno`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `plazas`
 --
 
 INSERT INTO `plazas` (`id_plaza`, `id_alumno`, `numero_oficio`, `estatus`, `fecha_inicio`, `fecha_fin`, `dependencia`, `programa`) VALUES
-(7, 11, '827/CUCEI/2025B', 'ACTIVA', '2025-05-06', NULL, 'Google México', 'Compañía multinacional especializada en servicios de búsqueda en internet, publicidad online y soluciones de computación en la nube.'),
-(6, 11, '826/CUCEI/2025B', 'INACTIVA', '2025-05-03', NULL, 'Softtek', 'Empresa de soluciones tecnológicas, con presencia en varios países ofreciendo servicios de TI, consultoría y desarrollo de software.'),
-(5, 11, '825/CUCEI/2025B', 'INACTIVA', '2025-05-03', NULL, 'HP Mexico', 'Empresa líder en hardware y software, conocida por sus computadoras, impresoras y soluciones tecnológicas.');
+(7, 11, '827/CUCEI/2025B', 'ACTIVA', '2025-05-06', NULL, 'Google Mexico', 'Multinacional especializada en busqueda por internet, publicidad online y soluciones en la nube.'),
+(8, 8, '828/CUCEI/2025B', 'ACTIVA', '2025-05-08', NULL, 'Google Mexico', 'Multinacional especializada en busqueda por internet, publicidad online y soluciones en la nube.');
 
 -- --------------------------------------------------------
 
@@ -164,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `registro` (
   PRIMARY KEY (`idRegistro`),
   KEY `fk_registro_alumno` (`codigoAlumno`),
   KEY `fk_registro_usuario` (`IdUsuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `registro`
@@ -186,19 +185,19 @@ CREATE TABLE IF NOT EXISTS `reportes` (
   `id_reporte` int NOT NULL AUTO_INCREMENT,
   `IdUsuario` int DEFAULT NULL,
   `id_plaza` int DEFAULT NULL,
-  `tipo_reporte` enum('BIMESTRAL','FINAL') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tipo_reporte` enum('BIMESTRAL','FINAL') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `consecutivo` int NOT NULL,
   `fecha_reporte` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `horas_reportadas` int NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
-  `actividades_realizadas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `actividades_ajustadas` enum('SI','NO','EN PARTE') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `actividades_realizadas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `actividades_ajustadas` enum('SI','NO','EN PARTE') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nuevos_conocimientos` int DEFAULT NULL,
   `experiencias_formativas` int DEFAULT NULL,
   `experiencias_profesionales` int DEFAULT NULL,
   `adquisicion_habilidades` int DEFAULT NULL,
-  `aportaciones_institucion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `aportaciones_institucion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cumplimiento_actividades` enum('SI','NO','EN PARTE') NOT NULL,
   `estatus` enum('EDICIÓN','APROBADO','RECHAZADO') NOT NULL DEFAULT 'EDICIÓN',
   `ruta_reporte` varchar(255) DEFAULT NULL,
@@ -212,7 +211,8 @@ CREATE TABLE IF NOT EXISTS `reportes` (
 --
 
 INSERT INTO `reportes` (`id_reporte`, `IdUsuario`, `id_plaza`, `tipo_reporte`, `consecutivo`, `fecha_reporte`, `horas_reportadas`, `fecha_inicio`, `fecha_fin`, `actividades_realizadas`, `actividades_ajustadas`, `nuevos_conocimientos`, `experiencias_formativas`, `experiencias_profesionales`, `adquisicion_habilidades`, `aportaciones_institucion`, `cumplimiento_actividades`, `estatus`, `ruta_reporte`) VALUES
-(1, 11, 5, 'BIMESTRAL', 1, '2025-04-21 03:28:20', 0, '2025-04-24', '2025-04-23', 'Actividades de servicio.', 'NO', 17, 3, 2, 5, 'Editado 2', 'SI', 'EDICIÓN', '\\public_html\\src\\Reportes\\reporte1.jpg');
+(5, 11, 7, 'BIMESTRAL', 1, '2025-05-08 02:24:29', 160, '2025-02-08', '2025-04-09', 'Apoyo a mantenimiento de servidores y equipos de computo.', 'SI', 90, 85, 90, 90, 'Mantenimiento.', 'SI', 'EDICIÓN', NULL),
+(6, 8, 8, 'BIMESTRAL', 1, '2025-05-08 02:26:29', 150, '2025-02-08', '2025-04-09', 'Mantenimiento.', '', 95, 90, 95, 90, 'Mantenimiento.', 'NO', 'EDICIÓN', NULL);
 
 -- --------------------------------------------------------
 
@@ -238,14 +238,14 @@ CREATE TABLE IF NOT EXISTS `reportes_finales` (
   PRIMARY KEY (`id_reporte_final`),
   KEY `IdUsuario` (`IdUsuario`),
   KEY `id_plaza` (`id_plaza`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `reportes_finales`
 --
 
 INSERT INTO `reportes_finales` (`id_reporte_final`, `IdUsuario`, `id_plaza`, `fecha_registro`, `estatus`, `fecha_termino`, `objetivos_programa`, `actividades_realizadas`, `metas_alcanzadas`, `metodologia_utilizada`, `conclusion_propuestas`, `aporte_innovaciones`, `ruta_documento`) VALUES
-(3, 11, 7, '2025-05-07 06:00:39', 'EDICIÓN', '2025-05-31', 'sdgfhjkjl', 'earstdtfgyhj', 'poiuytred', 'poijuhgf', 'sdfhgstrh', 'asdfgsdfhg', '\\public_html\\src\\Reportes\\reporte1.jpg');
+(5, 8, 8, '2025-05-08 02:38:15', 'EDICIÓN', '2025-04-08', 'Mantenimiento.', 'Mantenimiento.', 'Mantenimiento.', 'Mantenimiento.', 'Mantenimiento.', 'Mantenimiento.', NULL);
 
 -- --------------------------------------------------------
 
@@ -256,14 +256,14 @@ INSERT INTO `reportes_finales` (`id_reporte_final`, `IdUsuario`, `id_plaza`, `fe
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `IdUsuario` int NOT NULL AUTO_INCREMENT,
-  `Correo` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Contrasena` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Usuario` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Nombre` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Rol` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `Imagen` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Correo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Contrasena` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Usuario` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Rol` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Imagen` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`IdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
